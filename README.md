@@ -4,6 +4,7 @@
 ## Team Members
 Julian Travis <br/>
 Naomi Perez
+Matt Corrado
 
 ## TA
 Shoumit
