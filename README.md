@@ -3,7 +3,7 @@
 
 ## Team Members
 Julian Travis <br/>
-Naomi Perez
+Naomi Perez <br/>
 Matt Corrado
 
 ## TA
