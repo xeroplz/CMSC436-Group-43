@@ -3,6 +3,7 @@
 
 ## Team Members
 Julian Travis
+Naomi Perez
 
 ## TA
 Shoumit
