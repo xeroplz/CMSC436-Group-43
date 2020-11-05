@@ -2,7 +2,7 @@
  Build a game like Mafia/Among Us
 
 ## Team Members
-Julian Travis
+Julian Travis <br/>
 Naomi Perez
 
 ## TA
