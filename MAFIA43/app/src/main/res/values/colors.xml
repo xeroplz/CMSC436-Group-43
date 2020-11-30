@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffd700</color> <!-- Temporary -->
+    <color name="colorPrimaryDark">#333333</color>
+    <color name="colorAccent">#ffd700</color> <!-- Temporary -->
+    <color name="white">#ffffff</color>
+</resources>
