@@ -3,6 +3,7 @@ package com.example.mafia43
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.content.Intent
 
 class TitleActivity : AppCompatActivity() {
     companion object {
@@ -19,6 +20,8 @@ class TitleActivity : AppCompatActivity() {
 
         mPlayButton.setOnClickListener {
             // Start the next activity!
+            val intent = Intent(this@TitleActivity, Temp::class.java)
+            startActivity(intent)
         }
     }
 }
