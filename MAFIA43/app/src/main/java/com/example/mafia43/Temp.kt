@@ -20,6 +20,16 @@ class Temp: AppCompatActivity()  {
 
         mVoteButton = findViewById(R.id.vote_button)
 
+        /* Just placeholder strings for now */
+        players = arrayOf<String>(
+            "Naomi",
+            "Julian",
+            "Matt",
+            "A name",
+            "Another",
+            "Player 3"
+        )
+
         mVoteButton.setOnClickListener{
             /* Creating intent for Voting Activity using players data.
             Add players array as extra to intent. */
@@ -27,13 +37,6 @@ class Temp: AppCompatActivity()  {
             voteIntent.putExtra("playersArr", players)
             startActivity(voteIntent)
         }
-
-        /* Just placeholder strings for now */
-        players = arrayOf<String>(
-            "Naomi",
-            "Julian",
-            "Matt"
-        )
 
     }
 }

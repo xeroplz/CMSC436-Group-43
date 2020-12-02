@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#333333</color>
     <color name="colorAccent">#ffd700</color> <!-- Temporary -->
     <color name="white">#ffffff</color>
+    <color name="black">#000</color>
 </resources>

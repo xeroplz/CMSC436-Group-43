@@ -1,22 +1,24 @@
 package com.example.mafia43
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import android.content.Intent
-import android.view.LayoutInflater
-import androidx.appcompat.app.AppCompatViewInflater
-import com.example.mafia43.R
-import kotlinx.android.synthetic.main.voting_selection.*
 import android.util.Log
+import android.view.LayoutInflater
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.AdapterView.OnItemClickListener
+import kotlinx.android.synthetic.main.voting_selection.*
 
 
 class Voting : AppCompatActivity() {
     lateinit var extras : Bundle
     lateinit var mInflater: LayoutInflater
+    lateinit var inflatedList : ListView
     lateinit var votingView : TextView
     lateinit var mPlayers : Array<String>
+    var adapter: ArrayAdapter<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,21 +27,20 @@ class Voting : AppCompatActivity() {
         /* Get players array from intent */
         mPlayers = intent.getStringArrayExtra("playersArr") as Array<String>
 
-        for(i in 0 until mPlayers.size){
-            Log.i(TAG,  "player ${mPlayers[i]}")
-        }
+        /* Instantiate listView and Adapter */
 
-        /* Create layout inflater for selection of players */
-        mInflater = applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        /* If you want to recreate this, just create a ListView in the layout resource file,
+         and use your listView instead of "player_list" */
 
-        mInflater.inflate(R.layout.voting_selection, player_list, false)
+        val listView = findViewById<ListView>(R.id.player_list)
+        listView.adapter = PlayerListAdapter(
+            this,
+            R.layout.player_list_item,
+            mPlayers
+        )
 
-        //addPlayersToList(mInflater, e)
+        listView.setBackgroundColor(resources.getColor(R.color.white, null))
         
-    }
-
-    fun addPlayersToList(inflater: LayoutInflater, players: Array<String>){
-
     }
 
     companion object{
