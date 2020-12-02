@@ -32,6 +32,7 @@
         tools:text="@string/voting" />
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/divider"
@@ -61,7 +62,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="400dp"
+        android:layout_marginBottom="350dp"
         android:fontFamily="@font/opensans_regular"
         android:text="@string/vote_selection"
         android:textAlignment="center"
@@ -73,30 +74,40 @@
         app:layout_constraintVertical_bias="0.085"
         tools:text="@string/vote_selection" />
 
-
-    <ListView
-        android:id="@+id/player_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        android:orientation="vertical"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_players"
+        android:layout_width="300dp"
+        android:layout_height="280dp"
         app:layout_constraintBottom_toTopOf="@id/button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:ignore="MissingConstraints" />
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/player_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints"
+            android:nestedScrollingEnabled="true"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:text="@string/confirm_vote"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player_list"
+        app:layout_constraintTop_toBottomOf="@+id/scroll_players"
         tools:ignore="NotSibling" />
 
 

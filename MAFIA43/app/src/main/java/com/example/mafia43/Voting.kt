@@ -1,14 +1,17 @@
 package com.example.mafia43
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.AdapterView.OnItemClickListener
+import android.view.MotionEvent
 import kotlinx.android.synthetic.main.voting_selection.*
 
 
@@ -20,6 +23,7 @@ class Voting : AppCompatActivity() {
     lateinit var mPlayers : Array<String>
     var adapter: ArrayAdapter<String>? = null
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.voting_selection)
@@ -40,7 +44,15 @@ class Voting : AppCompatActivity() {
         )
 
         listView.setBackgroundColor(resources.getColor(R.color.white, null))
-        
+
+        listView.setOnTouchListener { v, event ->
+            when (event?.action) {
+                MotionEvent.ACTION_DOWN -> Log.i(TAG, "clicked")
+            }
+
+            v?.onTouchEvent(event) ?: true
+        }
+
     }
 
     companion object{
