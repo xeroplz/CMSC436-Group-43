@@ -10,15 +10,15 @@ class TitleActivity : AppCompatActivity() {
 
     }
 
-    private lateinit var mPlayButton : Button
+    private lateinit var mStartButton : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_title)
 
-        mPlayButton = findViewById(R.id.play_button)
+        mStartButton = findViewById(R.id.play_button)
 
-        mPlayButton.setOnClickListener {
+        mStartButton.setOnClickListener {
             // Start the next activity!
             val intent = Intent(this@TitleActivity, Temp::class.java)
             startActivity(intent)
