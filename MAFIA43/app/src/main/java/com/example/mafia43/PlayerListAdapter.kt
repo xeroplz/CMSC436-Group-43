@@ -1,17 +1,15 @@
 package com.example.mafia43
 
 import android.content.Context
-import android.widget.BaseAdapter
 import android.view.View
 import android.view.ViewGroup
 import android.view.LayoutInflater
-import android.widget.RelativeLayout
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
-class PlayerListAdapter (context: Context, resource: Int, objects: Array<String>) :
-    ArrayAdapter<String>(context, resource, objects) {
+class PlayerListAdapter(context: Context, resource: Int, objects: Array<Player>) :
+    ArrayAdapter<Player>(context, resource, objects) {
 
     private var mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -41,7 +39,7 @@ class PlayerListAdapter (context: Context, resource: Int, objects: Array<String>
         val storedViewHolder = newView.tag as ViewHolder
 
         //Set the data in the data View
-        storedViewHolder.textView.text = getItem(position)
+        storedViewHolder.textView.text = getItem(position)?.name()
         Log.i("tag", getItem(position).toString())
 
         return newView

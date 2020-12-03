@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#ffd700</color> <!-- Temporary -->
     <color name="colorPrimaryDark">#333333</color>
-    <color name="colorAccent">#ffd700</color> <!-- Temporary -->
     <color name="white">#ffffff</color>
     <color name="black">#000</color>
+    <color name="lightGrey">#d6d4d4</color>
+    <color name="lighterGrey">#e7e7e7</color>
 </resources>

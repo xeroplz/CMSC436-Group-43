@@ -1,35 +1,32 @@
 package com.example.mafia43
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.AdapterView.OnItemClickListener
-import android.view.MotionEvent
-import kotlinx.android.synthetic.main.voting_selection.*
 
 
 class Voting : AppCompatActivity() {
     lateinit var extras : Bundle
     lateinit var mInflater: LayoutInflater
     lateinit var inflatedList : ListView
-    lateinit var votingView : TextView
-    lateinit var mPlayers : Array<String>
+    lateinit var confirmButton : Button
+    lateinit var mPlayers : Array<Player>
+    lateinit var mBundle : Bundle
+    lateinit var votedOff : Player
     var adapter: ArrayAdapter<String>? = null
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.voting_selection)
 
-        /* Get players array from intent */
-        mPlayers = intent.getStringArrayExtra("playersArr") as Array<String>
+        /* Get players array from intent Bundle */
+        mBundle = intent.getBundleExtra("Bundle")!!
+        mPlayers = mBundle.getSerializable("playersArr") as Array<Player>
 
         /* Instantiate listView and Adapter */
 
@@ -45,12 +42,19 @@ class Voting : AppCompatActivity() {
 
         listView.setBackgroundColor(resources.getColor(R.color.white, null))
 
-        listView.setOnTouchListener { v, event ->
-            when (event?.action) {
-                MotionEvent.ACTION_DOWN -> Log.i(TAG, "clicked")
-            }
+        /* position is items position in players array */
+        listView.setOnItemClickListener{parent: AdapterView<*>, view: View, position: Int, id: Long ->
 
-            v?.onTouchEvent(event) ?: true
+            Log.i(TAG, mPlayers[position].name())
+            votedOff = mPlayers[position]
+
+        }
+
+        /* When button is clicked, set person voted off to die() */
+        confirmButton = findViewById(R.id.confirm_button)
+
+        confirmButton.setOnClickListener{
+            votedOff.die()
         }
 
     }
