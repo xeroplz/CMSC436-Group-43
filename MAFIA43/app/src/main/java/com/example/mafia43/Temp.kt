@@ -50,6 +50,8 @@ class Temp: AppCompatActivity()  {
             val args = Bundle()
             args.putSerializable("playersArr", players as Serializable)
             nightIntent.putExtra("Bundle", args)
+            nightIntent.putExtra("AlivePlayers", 6)
+            nightIntent.putExtra("Role", 1)
             startActivity(nightIntent)
         }
 
