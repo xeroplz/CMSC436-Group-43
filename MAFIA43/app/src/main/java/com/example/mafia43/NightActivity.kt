@@ -19,7 +19,7 @@ class NightActivity : AppCompatActivity() {
     private lateinit var mAudioManager: AudioManager
     private lateinit var mHandler: Handler
     private lateinit var mConfirmButton: Button
-    private var role = 1
+    private var role = MAFIA
     private var vol = 0.5f
 
 
@@ -34,7 +34,7 @@ class NightActivity : AppCompatActivity() {
         mHandler = Handler(Looper.getMainLooper())
         mConfirmButton = findViewById(R.id.nContinue)
 
-        role =  intent.getIntExtra("Role", 1)
+        role =  intent.getIntExtra("Role", MAFIA)
         val alive = intent.getIntExtra("AlivePlayers", mPlayers.size)
         val killPlayer = intent.getStringExtra("Kill")
         val savePlayer = intent.getStringExtra("Save")
@@ -43,7 +43,7 @@ class NightActivity : AppCompatActivity() {
         when (role) {
             1 -> {
                 for (player in mPlayers) {
-                    if(player.role() == 1) {
+                    if(player.role() == MAFIA) {
                         if(player.alive()) {
                             mTextView.text = "Mafia Awake"
                             mHandler.postDelayed(mRunnable, 3000)
@@ -55,7 +55,7 @@ class NightActivity : AppCompatActivity() {
             }
             2 -> {
                 for (player in mPlayers) {
-                    if(player.role() == 2) {
+                    if(player.role() == DOCTOR) {
                         if(player.alive()) {
                             mTextView.text = "Doctor Awake"
                             mHandler.postDelayed(mRunnable, 3000)
@@ -67,7 +67,7 @@ class NightActivity : AppCompatActivity() {
                             args.putSerializable("playersArr", mPlayers as Serializable)
                             nightIntent.putExtra("Bundle", args)
                             nightIntent.putExtra("AlivePlayers", alive)
-                            nightIntent.putExtra("Role", 3)
+                            nightIntent.putExtra("Role", DETECTIVE)
                             startActivity(nightIntent)
                         }
                     }
@@ -75,7 +75,7 @@ class NightActivity : AppCompatActivity() {
             }
             3 -> {
                 for (player in mPlayers) {
-                    if(player.role() == 3) {
+                    if(player.role() == DETECTIVE) {
                         if(player.alive()) {
                             mTextView.text = "Detective Awake"
                             mHandler.postDelayed(mRunnable, 8000)
@@ -94,7 +94,7 @@ class NightActivity : AppCompatActivity() {
             val args = Bundle()
             args.putSerializable("playersArr", mPlayers as Serializable)
             nightIntent.putExtra("Bundle", args)
-            nightIntent.putExtra("AlivePlayers", 6)
+            nightIntent.putExtra("AlivePlayers", alive)
             nightIntent.putExtra("Role", role)
             nightIntent.putExtra("Kill", killPlayer)
             nightIntent.putExtra("Save", savePlayer)
@@ -104,10 +104,18 @@ class NightActivity : AppCompatActivity() {
 
     private val mRunnable = Runnable {
         when (role) {
-            1 -> mAudioManager.playSoundEffect(AudioManager.FX_KEYPRESS_INVALID, vol)
-            2 -> mAudioManager.playSoundEffect(AudioManager.FX_KEYPRESS_SPACEBAR, vol)
-            3 -> mAudioManager.playSoundEffect(AudioManager.FX_KEYPRESS_RETURN, vol)
+            MAFIA -> mAudioManager.playSoundEffect(AudioManager.FX_KEYPRESS_INVALID, vol)
+            DOCTOR -> mAudioManager.playSoundEffect(AudioManager.FX_KEYPRESS_SPACEBAR, vol)
+            DETECTIVE -> mAudioManager.playSoundEffect(AudioManager.FX_KEYPRESS_RETURN, vol)
         }
+    }
+
+    companion object{
+        const val TAG = "night_activity"
+        const val MAFIA = 1
+        const val DOCTOR = 2
+        const val DETECTIVE = 3
+        const val CIVILIAN = 4
     }
 
 }

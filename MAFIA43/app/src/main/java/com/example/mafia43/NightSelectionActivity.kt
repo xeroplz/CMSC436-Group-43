@@ -1,20 +1,24 @@
 package com.example.mafia43
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import java.io.Serializable
 
 class NightSelectionActivity : AppCompatActivity() {
 
-    lateinit var mConfirmButton : Button
-    lateinit var mPlayers : Array<Player>
-    lateinit var currPlayers : Array<Player>
-    lateinit var mBundle : Bundle
-    lateinit var selected : String
+    private lateinit var mConfirmButton : Button
+    private lateinit var mPlayers : Array<Player>
+    private lateinit var currPlayers : Array<Player>
+    private lateinit var mBundle : Bundle
+    private lateinit var selected : String
+    private lateinit var mRoleView : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +29,11 @@ class NightSelectionActivity : AppCompatActivity() {
         mPlayers = mBundle.getSerializable("playersArr") as Array<Player>
         val role = intent.getIntExtra("Role", 0)
         val alive = intent.getIntExtra("AlivePlayers", mPlayers.size)
+        mRoleView = findViewById(R.id.textView)
 
         when(role) {
             MAFIA -> {
+
                 currPlayers = Array<Player>(alive - 1) {Player("", 0)}
                 var j = 0
                 for(i in 0..mPlayers.size-1) {
@@ -84,7 +90,43 @@ class NightSelectionActivity : AppCompatActivity() {
         mConfirmButton = findViewById(R.id.confirm_button)
 
         mConfirmButton.setOnClickListener{
-
+            when (role) {
+                MAFIA -> {
+                    val nightIntent = Intent(this@NightSelectionActivity, NightActivity::class.java)
+                    /* You have to create a Bundle to pass the Player array */
+                    val args = Bundle()
+                    args.putSerializable("playersArr", mPlayers as Serializable)
+                    nightIntent.putExtra("Bundle", args)
+                    nightIntent.putExtra("AlivePlayers", alive)
+                    nightIntent.putExtra("Role", DOCTOR)
+                    nightIntent.putExtra("Kill", selected)
+                    nightIntent.putExtra("Save","")
+                    startActivity(nightIntent)
+                }
+                DOCTOR -> {
+                    val nightIntent = Intent(this@NightSelectionActivity, NightActivity::class.java)
+                    /* You have to create a Bundle to pass the Player array */
+                    val args = Bundle()
+                    args.putSerializable("playersArr", mPlayers as Serializable)
+                    nightIntent.putExtra("Bundle", args)
+                    nightIntent.putExtra("AlivePlayers", alive)
+                    nightIntent.putExtra("Role", DETECTIVE)
+                    nightIntent.putExtra("Kill", intent.getStringExtra("Kill"))
+                    nightIntent.putExtra("Save", selected)
+                    startActivity(nightIntent)
+                }
+                DETECTIVE -> {
+                    val nightIntent = Intent(this@NightSelectionActivity, NightActivity::class.java)
+                    /* You have to create a Bundle to pass the Player array */
+                    val args = Bundle()
+                    args.putSerializable("playersArr", mPlayers as Serializable)
+                    nightIntent.putExtra("Bundle", args)
+                    nightIntent.putExtra("AlivePlayers", alive)
+                    nightIntent.putExtra("Kill", intent.getStringExtra("Kill"))
+                    nightIntent.putExtra("Save", intent.getStringExtra("Save"))
+                    startActivity(nightIntent)
+                }
+            }
         }
     }
 
