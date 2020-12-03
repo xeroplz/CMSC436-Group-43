@@ -6,4 +6,5 @@
     <color name="black">#000</color>
     <color name="lightGrey">#d6d4d4</color>
     <color name="lighterGrey">#e7e7e7</color>
+    <color name="entryButtonColor">#24a0ed</color>
 </resources>
