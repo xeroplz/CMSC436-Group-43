@@ -29,7 +29,7 @@ class NightSelectionActivity : AppCompatActivity() {
         mPlayers = mBundle.getSerializable("playersArr") as Array<Player>
         val role = intent.getIntExtra("Role", 0)
         val alive = intent.getIntExtra("AlivePlayers", mPlayers.size)
-        mRoleView = findViewById(R.id.textView)
+        mRoleView = findViewById(R.id.nsTextView)
 
         when(role) {
             MAFIA -> {
