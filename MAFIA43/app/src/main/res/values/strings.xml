@@ -3,6 +3,9 @@
 
     <string name="restart">Restart Game</string>
 
+    <string name="night">NIGHT</string>
+    <string name="night_role">ROLE</string>
+
     <string name="voting">VOTING</string>
     <!-- This string will have to be dynamic as days change -->
     <string name="day_num">DAY 1</string>
