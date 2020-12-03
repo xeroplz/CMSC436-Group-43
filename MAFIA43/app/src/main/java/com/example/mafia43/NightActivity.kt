@@ -6,6 +6,7 @@ import android.media.AudioManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import java.io.Serializable
@@ -17,6 +18,7 @@ class NightActivity : AppCompatActivity() {
     private lateinit var mTextView : TextView
     private lateinit var mAudioManager: AudioManager
     private lateinit var mHandler: Handler
+    private lateinit var mConfirmButton: Button
     private var role = 1
     private var vol = 0.5f
 
@@ -30,9 +32,12 @@ class NightActivity : AppCompatActivity() {
         mTextView = findViewById(R.id.nRoleTextView)
         mAudioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         mHandler = Handler(Looper.getMainLooper())
+        mConfirmButton = findViewById(R.id.nContinue)
 
         role =  intent.getIntExtra("Role", 1)
         val alive = intent.getIntExtra("AlivePlayers", mPlayers.size)
+        val killPlayer = intent.getStringExtra("Kill")
+        val savePlayer = intent.getStringExtra("Save")
 
 
         when (role) {
@@ -55,6 +60,7 @@ class NightActivity : AppCompatActivity() {
                             mTextView.text = "Doctor Awake"
                             mHandler.postDelayed(mRunnable, 3000)
                         } else {
+                            mHandler.postDelayed(mRunnable, 3000)
                             val nightIntent = Intent(this@NightActivity, NightActivity::class.java)
                             /* You have to create a Bundle to pass the Player array */
                             val args = Bundle()
@@ -72,15 +78,28 @@ class NightActivity : AppCompatActivity() {
                     if(player.role() == 3) {
                         if(player.alive()) {
                             mTextView.text = "Detective Awake"
-                            mHandler.postDelayed(mRunnable, 3000)
+                            mHandler.postDelayed(mRunnable, 8000)
                         } else {
                             /* send to night recap page */
+                            mHandler.postDelayed(mRunnable, 8000)
                         }
                     }
                 }
             }
         }
 
+        mConfirmButton.setOnClickListener {
+            val nightIntent = Intent(this@NightActivity, NightSelectionActivity::class.java)
+            /* You have to create a Bundle to pass the Player array */
+            val args = Bundle()
+            args.putSerializable("playersArr", mPlayers as Serializable)
+            nightIntent.putExtra("Bundle", args)
+            nightIntent.putExtra("AlivePlayers", 6)
+            nightIntent.putExtra("Role", role)
+            nightIntent.putExtra("Kill", killPlayer)
+            nightIntent.putExtra("Save", savePlayer)
+            startActivity(nightIntent)
+        }
     }
 
     private val mRunnable = Runnable {

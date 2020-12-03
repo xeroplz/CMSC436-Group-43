@@ -52,6 +52,8 @@ class Temp: AppCompatActivity()  {
             nightIntent.putExtra("Bundle", args)
             nightIntent.putExtra("AlivePlayers", 6)
             nightIntent.putExtra("Role", 1)
+            nightIntent.putExtra("Kill", "")
+            nightIntent.putExtra("Save","")
             startActivity(nightIntent)
         }
 
