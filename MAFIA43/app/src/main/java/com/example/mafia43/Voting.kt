@@ -50,16 +50,44 @@ class Voting : AppCompatActivity() {
 
         }
 
-        /* When button is clicked, set person voted off to die() */
+        /* When button is clicked, set person voted off to die()
+        *  TODO: Maybe I should exclude mafia in voting off list
+        * */
         confirmButton = findViewById(R.id.confirm_button)
 
         confirmButton.setOnClickListener{
             votedOff.die()
+            checkWinCondition()
+        }
+
+    }
+
+    fun checkWinCondition(){
+        var numMafiaAlive = 0;
+        var numCivilianAlive = 0;
+
+        for(i in mPlayers.indices){
+            val player = mPlayers[i]
+            if(player.role() == MAFIA && player.alive()){ // if player is mafia and isAlive
+                numMafiaAlive += 1
+            } else if(player.role() == CIVILIAN && player.alive()){
+                numCivilianAlive += 1
+            }
+        }
+
+        if(numMafiaAlive == 0){
+            // civilians win
+        }else if(numCivilianAlive <= MAFIA){
+            // mafia wins
         }
 
     }
 
     companion object{
         const val TAG = "tag"
+        const val MAFIA = 1
+        const val DOCTOR = 2
+        const val DETECTIVE = 3
+        const val CIVILIAN = 4
     }
 }
