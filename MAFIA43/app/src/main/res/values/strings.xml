@@ -5,6 +5,7 @@
 
     <string name="night">NIGHT</string>
     <string name="night_role">ROLE</string>
+    <string name="night_selection">Who?</string>
 
     <string name="voting">VOTING</string>
     <!-- This string will have to be dynamic as days change -->

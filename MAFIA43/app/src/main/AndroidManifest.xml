@@ -19,7 +19,8 @@
         <activity android:name=".Temp">
         </activity>
         <activity android:name=".NightActivity">
-            
+        </activity>
+        <activity android:name=".NightSelectionActivity">
         </activity>
         <activity android:name=".Voting">
 
