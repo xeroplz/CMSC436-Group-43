@@ -108,7 +108,7 @@ class NightRecapActivity : AppCompatActivity() {
                 } else {
                     nightIntent.putExtra("Saved", false)
                 }
-                
+
                 startActivity(nightIntent)
             }
         }
