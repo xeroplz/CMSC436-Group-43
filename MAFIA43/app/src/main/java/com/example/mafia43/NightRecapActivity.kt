@@ -1,12 +1,50 @@
 package com.example.mafia43
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class NightRecapActivity : AppCompatActivity() {
+
+    private lateinit var mContinueButton : Button
+    private lateinit var mTextView : TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.night_role_confirm)
+
+        mContinueButton = findViewById(R.id.nContinue)
+        mTextView = findViewById(R.id.nRoleTextView)
+        val killedPlayer = intent.getStringExtra("Kill")
+
+        val rand = (1..22).random()
+        mTextView.setTextSize(20f)
+
+        when (rand) {
+            1 -> mTextView.setText("At night, " + killedPlayer + " was reportedly smothered by cloaks and hats showered upon them by an intruder during their sleep.")
+            2 -> mTextView.setText("At night, " + killedPlayer + "’s neck was snapped by the mafia due to a disagreement earlier in the day over whether a “hot dog is a sandwich”. ")
+            3 -> mTextView.setText("At night, " + killedPlayer + " was being chased by the mafia. They almost outran the mafia, but came across a bean field, which they refused to run across because they had prohibited beans as ritually unclean. Since cutting the beans would violate their beliefs, they decided to simply stop running.")
+            4 -> mTextView.setText("At night, the mafia came in while " + killedPlayer + " was sleeping and smeared them with cow manure. The scent attracted their dogs, but not in a good way.")
+            5 -> mTextView.setText("At night, the mafia slipped bull blood in " + killedPlayer + "’s milk. " + killedPlayer + " drank the milk and fell ill.")
+            6 -> mTextView.setText("At night, the mafia sent an eagle carrying a tortoise to " + killedPlayer + "’s house. " + killedPlayer + ", who was tending to their garden, heard the eagle fly over and looked up to see a tortoise falling towards their head. Normally, eagles drop tortoises on rocks to break their shell, but the bird thought " + killedPlayer + "’s head was a rock in the dark night.")
+            7 -> mTextView.setText("At night, the mafia came to " + killedPlayer + "’s house and drugged their night cup of coffee. This drug made " + killedPlayer + " think that they were an immortal god and to prove it to themselves they headed off to the nearest volcano to jump in.")
+            8 -> mTextView.setText("At night, the mafia came to pay " + killedPlayer + " a visit. With them, they brought wine and some grapes from their orchid. " + killedPlayer + " started to eat the grape, but it turned out it was unripe. " + killedPlayer + " started to choke on the food.")
+            9 -> mTextView.setText("At night, the mafia came to " + killedPlayer + "’s house. They restrained and slatthered " + killedPlayer + " in milk and honey, while they were sleeping in an attempt to kill them by scaphism (I recommend not searching this up).")
+            10 -> mTextView.setText("At night, the mafia threw a pear at " + killedPlayer + ".")
+            11 -> mTextView.setText("At night, the mafia sent a package to " + killedPlayer + "’s house. The package contained mercury pills that were said to grant them eternal life.")
+            12 -> mTextView.setText("At night, " + killedPlayer + " noticed that their pet donkey had gotten out of their pen. The donkey went up to " + killedPlayer + "’s fig tree and started eating a fig. This humored " + killedPlayer + " and made them start laughing like crazy.")
+            13 -> mTextView.setText("At night, the mafia came and forced " + killedPlayer + " to swallow hot coals while they were sleeping.")
+            14 -> mTextView.setText("At night, the mafia came and took " + killedPlayer + " out of their house. They ended up restraining them and started roasting them alive.")
+            15 -> mTextView.setText("At night, the mafia came and took " + killedPlayer + ". The mafia threw " + killedPlayer + " into a pit of snakes.")
+            16 -> mTextView.setText("At night, " + killedPlayer + " was stabbed whilst on the toilet by the mafia, who were hiding underneath.")
+            17 -> mTextView.setText("At night, " + killedPlayer + " went to sit on their new IKEA chair, but it turns out that the chair was missing a leg because the mafia owns IKEA.")
+            18 -> mTextView.setText("At night, " + killedPlayer + " was rolled up in a rug by the mafia. The mafia then sent horses to trample over them.")
+            19 -> mTextView.setText("At night, " + killedPlayer + " was sleeping in a linen sheet. The mafia came and poured distilled spirits on the linen sheet and sent the highly flammable sheet on fire.")
+            20 -> mTextView.setText("At night, the mafia came and took " + killedPlayer + ". The mafia put " + killedPlayer + " in a barrel of Malmsey wine.")
+            21 -> mTextView.setText("At night, the mafia came to " + killedPlayer + "’s house and started to play their favorite song. This made " + killedPlayer + " start dancing not realizing it was on a ten hour loop.")
+            22 -> mTextView.setText("At night, " + killedPlayer + " tripped over their own beard.")
+        }
     }
 
     companion object{

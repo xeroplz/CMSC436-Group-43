@@ -44,6 +44,7 @@ class DetectiveActivity : AppCompatActivity() {
             nightIntent.putExtra("AlivePlayers", intent.getIntExtra("AlivePlayers", mPlayers.size))
             nightIntent.putExtra("Kill", intent.getStringExtra("Kill"))
             nightIntent.putExtra("Save", intent.getStringExtra("Save"))
+            startActivity(nightIntent)
         }
     }
 
