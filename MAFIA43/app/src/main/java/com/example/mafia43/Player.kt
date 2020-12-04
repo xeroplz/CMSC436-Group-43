@@ -4,7 +4,7 @@ import java.io.Serializable
 
 
 
-class Player : Serializable{
+class Player : Serializable {
     private lateinit var privName : String
     private var privRole : Int = 0 // 1 = Mafia | 2 = Doctor | 3 = Detective | 4 = Civilian
     private var privAlive = true // true = alive, false = dead
