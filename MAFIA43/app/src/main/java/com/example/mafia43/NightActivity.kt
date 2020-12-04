@@ -67,6 +67,8 @@ class NightActivity : AppCompatActivity() {
                             args.putSerializable("playersArr", mPlayers as Serializable)
                             nightIntent.putExtra("Bundle", args)
                             nightIntent.putExtra("AlivePlayers", alive)
+                            nightIntent.putExtra("Kill", intent.getStringExtra("Kill"))
+                            nightIntent.putExtra("Save", intent.getStringExtra("Save"))
                             nightIntent.putExtra("Role", DETECTIVE)
                             startActivity(nightIntent)
                         }
@@ -78,10 +80,20 @@ class NightActivity : AppCompatActivity() {
                     if(player.role() == DETECTIVE) {
                         if(player.alive()) {
                             mTextView.text = "Detective Awake..."
-                            mHandler.postDelayed(mRunnable, 6000)
+                            mHandler.postDelayed(mRunnable, 8000)
                         } else {
-                            /* send to night recap page */
-                            mHandler.postDelayed(mRunnable, 6000)
+                            mHandler.postDelayed(mRunnable, 8000)
+
+                            /* Send to night recap page */
+                            val nightIntent = Intent(this@NightActivity, NightRecapActivity::class.java)
+                            /* You have to create a Bundle to pass the Player array */
+                            val args = Bundle()
+                            args.putSerializable("playersArr", mPlayers as Serializable)
+                            nightIntent.putExtra("Bundle", args)
+                            nightIntent.putExtra("AlivePlayers", intent.getIntExtra("AlivePlayers", mPlayers.size))
+                            nightIntent.putExtra("Kill", intent.getStringExtra("Kill"))
+                            nightIntent.putExtra("Save", intent.getStringExtra("Save"))
+                            startActivity(nightIntent)
                         }
                     }
                 }

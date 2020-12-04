@@ -1,25 +1,51 @@
 package com.example.mafia43
 
+import android.content.Context
+import android.content.Intent
+import android.media.AudioManager
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import java.io.Serializable
 
 class NightRecapActivity : AppCompatActivity() {
 
     private lateinit var mContinueButton : Button
+    private lateinit var mPlayers : Array<Player>
+    private lateinit var mAudioManager: AudioManager
     private lateinit var mTextView : TextView
+    private lateinit var mNightView : TextView
+    private lateinit var mHandler: Handler
+    private lateinit var mBundle : Bundle
+    private var mSoundPool: SoundPool? = null
+    private var mSoundId: Int = 0
+    private var vol = 0.5f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.night_role_confirm)
 
+        /* Get players array from intent Bundle */
+        mBundle = intent.getBundleExtra("Bundle")!!
+        mPlayers = mBundle.getSerializable("playersArr") as Array<Player>
+        mAudioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        mHandler = Handler(Looper.getMainLooper())
+
         mContinueButton = findViewById(R.id.nContinue)
+        mNightView = findViewById(R.id.nTextView)
         mTextView = findViewById(R.id.nRoleTextView)
         val killedPlayer = intent.getStringExtra("Kill")
 
+        mHandler.postDelayed(mRunnable, 12000)
+
         val rand = (1..22).random()
         mTextView.setTextSize(20f)
+        mNightView.setText("Night Recap")
 
         when (rand) {
             1 -> mTextView.setText("At night, " + killedPlayer + " was reportedly smothered by cloaks and hats showered upon them by an intruder during their sleep.")
@@ -45,6 +71,44 @@ class NightRecapActivity : AppCompatActivity() {
             21 -> mTextView.setText("At night, the mafia came to " + killedPlayer + "’s house and started to play their favorite song. This made " + killedPlayer + " start dancing not realizing it was on a ten hour loop.")
             22 -> mTextView.setText("At night, " + killedPlayer + " tripped over their own beard.")
         }
+
+        mContinueButton.setOnClickListener {
+            val nightIntent = Intent(this@NightRecapActivity, NightSaveActivity::class.java)
+
+            /* You have to create a Bundle to pass the Player array */
+            val args = Bundle()
+            args.putSerializable("playersArr", mPlayers as Serializable)
+            nightIntent.putExtra("Bundle", args)
+            nightIntent.putExtra("AlivePlayers", intent.getIntExtra("AlivePlayers", mPlayers.size))
+            nightIntent.putExtra("Kill", intent.getStringExtra("Kill"))
+            nightIntent.putExtra("Random", rand)
+
+            if (killedPlayer == intent.getStringExtra("Save")) {
+                nightIntent.putExtra("Saved", true)
+                startActivity(nightIntent)
+            } else {
+                nightIntent.putExtra("Saved", false)
+            }
+
+            startActivity(nightIntent)
+        }
+    }
+
+    private val mRunnable = Runnable {
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_MEDIA)
+            .build()
+
+        mSoundPool = SoundPool.Builder()
+            .setAudioAttributes(audioAttributes)
+            .build()
+
+        mSoundPool?.apply {
+            // Load sound into the SoundPool
+            //mSoundId = load(this@NightRecapActivity, R.raw.ding_harsh, 1)
+        }
+
+        mSoundPool?.play(mSoundId, vol, vol, 1, 0, 1.0f)
     }
 
     companion object{
