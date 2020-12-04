@@ -1,5 +1,7 @@
 package com.example.mafia43
 
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -7,8 +9,9 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import java.io.Serializable
 
-
+// TODO: Send voting to DayRecap Activity, SavedInstanceState, disable Back Button
 class Voting : AppCompatActivity() {
     lateinit var mTimerText : TextView
     var timeOut : Boolean = false
@@ -19,7 +22,6 @@ class Voting : AppCompatActivity() {
     lateinit var votedOff : Player
     var numAlive : Int = 0
     lateinit var mAlivePlayers : Array<Player>
-    var adapter: ArrayAdapter<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +34,10 @@ class Voting : AppCompatActivity() {
         numAlive = intent.getIntExtra("AlivePlayers", -1)
         initializeAlivePlayers()
 
-
-
         /* set Timer */
         mTimerText = findViewById(R.id.timer_text)
 
-        object : CountDownTimer(120000, 1000) {
+        object : CountDownTimer(30000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 mTimerText.text = (millisUntilFinished / 1000).toString()
                 //here you can have your logic to set text to edittext
@@ -45,7 +45,7 @@ class Voting : AppCompatActivity() {
 
             override fun onFinish() {
 
-                mTimerText.setText("Time is up!")
+                mTimerText.text = "Time is up!"
                 infoDialog()
             }
         }.start()
@@ -65,44 +65,62 @@ class Voting : AppCompatActivity() {
         listView.setBackgroundColor(resources.getColor(R.color.white, null))
 
         /* position is items position in players array */
-        listView.setOnItemClickListener{parent: AdapterView<*>, view: View, position: Int, id: Long ->
+        listView.setOnItemClickListener{ _: AdapterView<*>, _: View, position: Int, _: Long ->
 
             Log.i(TAG, mAlivePlayers[position].name())
             votedOff = mAlivePlayers[position]
 
         }
 
-        /* When button is clicked, set person voted off to die()
-        *  TODO: Maybe I should exclude mafia in voting off list
-        *   Only display alive people but make sure to chan
-        * */
+        /* When button is clicked, set person voted off to die() */
         confirmButton = findViewById(R.id.confirm_button)
 
         confirmButton.setOnClickListener{
                 // Kill off player in players object arrays
                 for (i in mPlayers.indices) {
-                    if (mPlayers[i].name().equals(votedOff.name())) {
+                    if (mPlayers[i].name() == votedOff.name()) {
                         mPlayers[i].die()
                     }
                 }
 
+                numAlive -= 1
                 checkWinCondition() // Goes to next activity
         }
 
         skipButton = findViewById(R.id.skip_button)
 
         skipButton.setOnClickListener{
-            // TODO: Go to next activity
+            goToVotingRecap("No one")
         }
     }
 
     fun infoDialog(){
-        val alertDialog: AlertDialog = AlertDialog.Builder(this@Voting).create()
-        alertDialog.setTitle("Times up!")
-        alertDialog.setMessage("The time you had to vote ran out.")
-        alertDialog.setCancelable(false);
-        alertDialog.setCanceledOnTouchOutside(false);
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this@Voting)
+
+        builder.setTitle("Times up!")
+        builder.setMessage("The time you had to vote ran out.")
+        builder.setCancelable(false);
+        builder.setPositiveButton("OK", DialogInterface.OnClickListener{ _,_ ->
+            // go to VoteRecap Activity
+            goToVotingRecap("No one")
+
+        })
+
+        val alertDialog = builder.create()
+        alertDialog.setCanceledOnTouchOutside(false)
         alertDialog.show()
+    }
+
+    private fun goToVotingRecap(votedOffString : String){
+        val recapIntent = Intent(this@Voting, VoteRecapActivity::class.java)
+        val args = Bundle()
+
+        args.putSerializable("playersArr", mPlayers as Serializable)
+        recapIntent.putExtra("Bundle", args)
+        recapIntent.putExtra("AlivePlayers", numAlive)
+        recapIntent.putExtra("VotedOff", votedOffString)
+
+        startActivity(recapIntent)
     }
 
     private fun checkWinCondition(){
@@ -121,10 +139,16 @@ class Voting : AppCompatActivity() {
             }
         }
 
-        if(numMafiaAlive == 0){
-            // civilians win
-        }else if(numCivilianAlive <= MAFIA){ // 1 civilian and 1 civilian, doctor and detective are civilians
-            // mafia wins
+        when {
+            numMafiaAlive == 0 -> {
+                /* civilians win */
+            }
+            numCivilianAlive <= MAFIA -> { // 1 civilian and 1 civilian, doctor and detective are civilians
+                // mafia wins
+            }
+            else -> {
+                goToVotingRecap(votedOff.name())
+            }
         }
 
     }

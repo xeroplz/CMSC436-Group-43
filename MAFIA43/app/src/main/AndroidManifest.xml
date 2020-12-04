@@ -37,6 +37,9 @@
         <activity android:name=".Voting">
         </activity>
 
+        <activity android:name=".VoteRecapActivity">
+        </activity>
+
         <activity android:name=".RoleAssignmentActivity">
         </activity>
     </application>
