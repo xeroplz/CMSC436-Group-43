@@ -12,6 +12,7 @@
     <string name="day_num">DAY 1</string>
     <string name="vote_selection">Select who the group has decided to vote off:</string>
     <string name="confirm_vote">CONFIRM</string>
+    <string name="skip_vote">SKIP VOTE</string>
 
     <!-- Description of UI images -->
     <string name="divider">divider</string>
