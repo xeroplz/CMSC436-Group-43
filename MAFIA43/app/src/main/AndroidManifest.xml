@@ -25,6 +25,12 @@
         <activity android:name=".NightSelectionActivity">
         </activity>
 
+        <activity android:name=".DetectiveActivity">
+        </activity>
+
+        <activity android:name=".NightRecapActivity">
+        </activity>
+
         <activity android:name=".Voting">
         </activity>
 
