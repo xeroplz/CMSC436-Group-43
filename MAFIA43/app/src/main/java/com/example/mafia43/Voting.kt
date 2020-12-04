@@ -58,8 +58,9 @@ class Voting : AppCompatActivity() {
         val listView = findViewById<ListView>(R.id.player_list)
         listView.adapter = PlayerListAdapter(
             this,
-            R.layout.player_list_item,
-            mAlivePlayers
+            R.layout.player_list_item_dark,
+            mAlivePlayers,
+            true
         )
 
         listView.setBackgroundColor(resources.getColor(R.color.white, null))
@@ -115,7 +116,8 @@ class Voting : AppCompatActivity() {
         val recapIntent = Intent(this@Voting, VoteRecapActivity::class.java)
         val args = Bundle()
 
-        args.putSerializable("playersArr", mPlayers as Serializable)
+        args.putSerializable("playersArr", this.mPlayers)
+
         recapIntent.putExtra("Bundle", args)
         recapIntent.putExtra("AlivePlayers", numAlive)
         recapIntent.putExtra("VotedOff", votedOffString)
@@ -139,17 +141,18 @@ class Voting : AppCompatActivity() {
             }
         }
 
-        when {
-            numMafiaAlive == 0 -> {
-                /* civilians win */
-            }
-            numCivilianAlive <= MAFIA -> { // 1 civilian and 1 civilian, doctor and detective are civilians
-                // mafia wins
-            }
-            else -> {
-                goToVotingRecap(votedOff.name())
-            }
-        }
+        goToVotingRecap(votedOff.name())
+//        when {
+//            numMafiaAlive == 0 -> {
+//                /* civilians win */
+//            }
+//            numCivilianAlive <= MAFIA -> { // 1 civilian and 1 civilian, doctor and detective are civilians
+//                // mafia wins
+//            }
+//            else -> {
+//                goToVotingRecap(votedOff.name())
+//            }
+//        }
 
     }
 
