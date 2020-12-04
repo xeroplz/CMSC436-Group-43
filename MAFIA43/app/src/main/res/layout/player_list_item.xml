@@ -14,6 +14,7 @@
         android:textAppearance="@android:style/TextAppearance.Material.Display1"
         android:textColor="@color/colorPrimaryDark"
         android:background="?android:attr/activatedBackgroundIndicator"
-        tools:ignore="MissingConstraints"/>
+        tools:ignore="MissingConstraints"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

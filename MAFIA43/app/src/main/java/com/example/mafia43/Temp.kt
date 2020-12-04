@@ -41,6 +41,7 @@ class Temp: AppCompatActivity()  {
             val args = Bundle()
             args.putSerializable("playersArr", players as Serializable)
             voteIntent.putExtra("Bundle", args)
+            voteIntent.putExtra("AlivePlayers", 6)
             startActivity(voteIntent)
         }
 
