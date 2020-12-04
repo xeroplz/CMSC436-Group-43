@@ -17,14 +17,16 @@ class NightRecapActivity : AppCompatActivity() {
 
     private lateinit var mContinueButton : Button
     private lateinit var mPlayers : Array<Player>
-    private lateinit var mAudioManager: AudioManager
     private lateinit var mTextView : TextView
     private lateinit var mNightView : TextView
     private lateinit var mHandler: Handler
     private lateinit var mBundle : Bundle
-    private var mSoundPool: SoundPool? = null
+    private lateinit var mAudioManager: AudioManager
+    private lateinit var mSoundPool: SoundPool
     private var mSoundId: Int = 0
-    private var vol = 0.5f
+
+    // Audio volume
+    private var mStreamVolume: Float = 0.toFloat()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +35,6 @@ class NightRecapActivity : AppCompatActivity() {
         /* Get players array from intent Bundle */
         mBundle = intent.getBundleExtra("Bundle")!!
         mPlayers = mBundle.getSerializable("playersArr") as Array<Player>
-        mAudioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         mHandler = Handler(Looper.getMainLooper())
 
         mContinueButton = findViewById(R.id.nContinue)
@@ -41,7 +42,20 @@ class NightRecapActivity : AppCompatActivity() {
         mTextView = findViewById(R.id.nRoleTextView)
         val killedPlayer = intent.getStringExtra("Kill")
 
-        mHandler.postDelayed(mRunnable, 12000)
+        // Get reference to the AudioManager
+        mAudioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+
+        this.volumeControlStream = AudioManager.STREAM_MUSIC
+
+        for(player in mPlayers) {
+            if (player.role() == DETECTIVE) {
+                if(player.alive()) {
+                    mHandler.postDelayed(mRunnable, 4000)
+                } else {
+                    mHandler.postDelayed(mRunnable, 20000)
+                }
+            }
+        }
 
         val rand = (1..22).random()
         mTextView.setTextSize(20f)
@@ -95,20 +109,23 @@ class NightRecapActivity : AppCompatActivity() {
     }
 
     private val mRunnable = Runnable {
+        mStreamVolume = mAudioManager!!
+            .getStreamVolume(AudioManager.STREAM_MUSIC).toFloat() / mAudioManager!!.getStreamMaxVolume(
+            AudioManager.STREAM_MUSIC
+        )
+
         val audioAttributes = AudioAttributes.Builder()
-            .setUsage(AudioAttributes.USAGE_MEDIA)
+            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
             .build()
 
         mSoundPool = SoundPool.Builder()
+            .setMaxStreams(10)
             .setAudioAttributes(audioAttributes)
             .build()
 
-        mSoundPool?.apply {
-            // Load sound into the SoundPool
-            //mSoundId = load(this@NightRecapActivity, R.raw.ding_harsh, 1)
-        }
+        mSoundPool.setOnLoadCompleteListener { soundPool, sampleId, status ->  mSoundPool.play(mSoundId, mStreamVolume, mStreamVolume, 1, 0, 1f) }
 
-        mSoundPool?.play(mSoundId, vol, vol, 1, 0, 1.0f)
+        mSoundId = mSoundPool.load(this@NightRecapActivity, R.raw.night_recap, 1)
     }
 
     companion object{

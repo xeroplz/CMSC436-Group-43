@@ -62,10 +62,10 @@ class NightSelectionActivity : AppCompatActivity() {
             DETECTIVE -> {
                 mRoleView.setText("DETECTIVE")
                 mPromptView.setText("Who do you want to check?")
-                currPlayers = Array<Player>(alive) {Player("", 0)}
+                currPlayers = Array<Player>(alive-1) {Player("", 0)}
                 var j = 0
                 for(i in 0..mPlayers.size-1) {
-                    if (mPlayers[i].alive()) {
+                    if (mPlayers[i].alive() && mPlayers[i].role() != DETECTIVE) {
                         currPlayers[j] = mPlayers[i]
                         j++
                     }

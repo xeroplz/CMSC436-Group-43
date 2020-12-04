@@ -58,6 +58,7 @@ class NightSaveActivity : AppCompatActivity() {
                 21 -> mTextView.setText("But luckily for " + killedPlayer + ", it was not the year 1518. And they just stopped dancing when they started getting tired.")
                 22 -> mTextView.setText("Luckily, they were able to catch themselves from falling.")
             }
+            mTextView.setText(mTextView.text.toString() + "\n\n" + alive.toString() + " players still remain...")
         } else {
             alive--
             mTextView.setText(killedPlayer + " has died and was not saved by the doctor...\n\n" + alive.toString() + " players remain...")
