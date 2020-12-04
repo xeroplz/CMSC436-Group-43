@@ -18,7 +18,7 @@ class NightActivity : AppCompatActivity() {
     private lateinit var mTextView : TextView
     private lateinit var mAudioManager: AudioManager
     private lateinit var mHandler: Handler
-    private lateinit var mConfirmButton: Button
+    private lateinit var mContinueButton: Button
     private var role = MAFIA
     private var vol = 0.5f
 
@@ -32,7 +32,7 @@ class NightActivity : AppCompatActivity() {
         mTextView = findViewById(R.id.nRoleTextView)
         mAudioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         mHandler = Handler(Looper.getMainLooper())
-        mConfirmButton = findViewById(R.id.nContinue)
+        mContinueButton = findViewById(R.id.nContinue)
 
         role =  intent.getIntExtra("Role", MAFIA)
         val alive = intent.getIntExtra("AlivePlayers", mPlayers.size)
@@ -45,7 +45,7 @@ class NightActivity : AppCompatActivity() {
                 for (player in mPlayers) {
                     if(player.role() == MAFIA) {
                         if(player.alive()) {
-                            mTextView.text = "Mafia Awake"
+                            mTextView.text = "Mafia Awake..."
                             mHandler.postDelayed(mRunnable, 3000)
                         } else {
                             /* send to Mafia loss screen */
@@ -57,7 +57,7 @@ class NightActivity : AppCompatActivity() {
                 for (player in mPlayers) {
                     if(player.role() == DOCTOR) {
                         if(player.alive()) {
-                            mTextView.text = "Doctor Awake"
+                            mTextView.text = "Doctor Awake..."
                             mHandler.postDelayed(mRunnable, 3000)
                         } else {
                             mHandler.postDelayed(mRunnable, 3000)
@@ -77,18 +77,18 @@ class NightActivity : AppCompatActivity() {
                 for (player in mPlayers) {
                     if(player.role() == DETECTIVE) {
                         if(player.alive()) {
-                            mTextView.text = "Detective Awake"
-                            mHandler.postDelayed(mRunnable, 8000)
+                            mTextView.text = "Detective Awake..."
+                            mHandler.postDelayed(mRunnable, 6000)
                         } else {
                             /* send to night recap page */
-                            mHandler.postDelayed(mRunnable, 8000)
+                            mHandler.postDelayed(mRunnable, 6000)
                         }
                     }
                 }
             }
         }
 
-        mConfirmButton.setOnClickListener {
+        mContinueButton.setOnClickListener {
             val nightIntent = Intent(this@NightActivity, NightSelectionActivity::class.java)
             /* You have to create a Bundle to pass the Player array */
             val args = Bundle()

@@ -33,7 +33,7 @@ class NightSelectionActivity : AppCompatActivity() {
 
         when(role) {
             MAFIA -> {
-
+                mRoleView.setText("MAFIA")
                 currPlayers = Array<Player>(alive - 1) {Player("", 0)}
                 var j = 0
                 for(i in 0..mPlayers.size-1) {
@@ -44,6 +44,7 @@ class NightSelectionActivity : AppCompatActivity() {
                 }
             }
             DOCTOR -> {
+                mRoleView.setText("DOCTOR")
                 currPlayers = Array<Player>(alive) {Player("", 0)}
                 var j = 0
                 for(i in 0..mPlayers.size-1) {
@@ -54,6 +55,7 @@ class NightSelectionActivity : AppCompatActivity() {
                 }
             }
             DETECTIVE -> {
+                mRoleView.setText("DETECTIVE")
                 currPlayers = Array<Player>(alive) {Player("", 0)}
                 var j = 0
                 for(i in 0..mPlayers.size-1) {
@@ -116,7 +118,7 @@ class NightSelectionActivity : AppCompatActivity() {
                     startActivity(nightIntent)
                 }
                 DETECTIVE -> {
-                    val nightIntent = Intent(this@NightSelectionActivity, NightActivity::class.java)
+                    val nightIntent = Intent(this@NightSelectionActivity, DetectiveActivity::class.java)
                     /* You have to create a Bundle to pass the Player array */
                     val args = Bundle()
                     args.putSerializable("playersArr", mPlayers as Serializable)
@@ -124,6 +126,7 @@ class NightSelectionActivity : AppCompatActivity() {
                     nightIntent.putExtra("AlivePlayers", alive)
                     nightIntent.putExtra("Kill", intent.getStringExtra("Kill"))
                     nightIntent.putExtra("Save", intent.getStringExtra("Save"))
+                    nightIntent.putExtra("Check", selected)
                     startActivity(nightIntent)
                 }
             }

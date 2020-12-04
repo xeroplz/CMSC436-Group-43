@@ -31,6 +31,9 @@
         <activity android:name=".NightRecapActivity">
         </activity>
 
+        <activity android:name=".NightSaveActivity">
+        </activity>
+
         <activity android:name=".Voting">
         </activity>
 
