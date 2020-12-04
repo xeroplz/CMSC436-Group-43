@@ -15,8 +15,19 @@
         android:textSize="30dp"
         android:textAppearance="@android:style/TextAppearance.Material.Display1"
         android:textColor="@color/colorPrimaryDark"
+        android:background="?android:attr/activatedBackgroundIndicator"
+        tools:ignore="MissingConstraints" />
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:fontFamily="@font/opensans_bold"
+        android:textSize="30dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Display1"
+        android:textColor="@color/colorPrimaryDark"
         android:background="@drawable/border_dark"
-        tools:ignore="MissingConstraints"
-        />
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
