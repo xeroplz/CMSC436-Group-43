@@ -113,7 +113,10 @@ class Voting : AppCompatActivity() {
             val player = mPlayers[i]
             if(player.role() == MAFIA && player.alive()){ // if player is mafia and isAlive
                 numMafiaAlive += 1
-            } else if(player.role() == CIVILIAN && player.alive()){
+            } else if((player.role() == CIVILIAN ||
+                player.role() == DOCTOR ||
+                player.role() == DETECTIVE)
+                && player.alive()){
                 numCivilianAlive += 1
             }
         }
