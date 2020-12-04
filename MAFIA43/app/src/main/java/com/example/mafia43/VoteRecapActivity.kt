@@ -29,7 +29,7 @@ class VoteRecapActivity : AppCompatActivity() {
 
         continueButton.setOnClickListener {
             nightIntent.putExtra("Bundle", args)
-            nightIntent.putExtra("AlivePlayers", intent.getStringExtra("AlivePlayers"))
+            nightIntent.putExtra("AlivePlayers", intent.getIntExtra("AlivePlayers", -1))
             nightIntent.putExtra("Role", 1)
             nightIntent.putExtra("Kill", "")
             nightIntent.putExtra("Save", "")
