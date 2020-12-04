@@ -73,18 +73,15 @@ class NightSaveActivity : AppCompatActivity() {
             if (alive <= 2) {
 
             } else {
-                /* Should go to day time voting, once finished */
-                val nightIntent = Intent(this@NightSaveActivity, NightActivity::class.java)
-
+                /* Creating intent for Voting Activity using players data.
+                Add players array as extra to intent. */
+                val voteIntent = Intent(this@NightSaveActivity, Voting::class.java)
                 /* You have to create a Bundle to pass the Player array */
                 val args = Bundle()
                 args.putSerializable("playersArr", mPlayers as Serializable)
-                nightIntent.putExtra("Bundle", args)
-                nightIntent.putExtra("AlivePlayers", alive)
-                nightIntent.putExtra("Role", 1)
-                nightIntent.putExtra("Kill", "")
-                nightIntent.putExtra("Save","")
-                startActivity(nightIntent)
+                voteIntent.putExtra("Bundle", args)
+                voteIntent.putExtra("AlivePlayers", alive)
+                startActivity(voteIntent)
             }
         }
     }

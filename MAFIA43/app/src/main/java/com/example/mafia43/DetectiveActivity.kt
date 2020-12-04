@@ -12,6 +12,7 @@ class DetectiveActivity : AppCompatActivity() {
     private lateinit var mContinueButton : Button
     private lateinit var mPlayers : Array<Player>
     private lateinit var mTextView : TextView
+    private lateinit var mDetectiveTextView : TextView
     private lateinit var mBundle : Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +23,11 @@ class DetectiveActivity : AppCompatActivity() {
         mBundle = intent.getBundleExtra("Bundle")!!
         mPlayers = mBundle.getSerializable("playersArr") as Array<Player>
         mContinueButton = findViewById(R.id.nContinue)
+        mDetectiveTextView = findViewById(R.id.nTextView)
         mTextView = findViewById(R.id.nRoleTextView)
         val check = intent.getStringExtra("Check")
+
+        mDetectiveTextView.setText("DETECTIVE REPORT")
 
         for (player in mPlayers) {
             if (player.name() == check) {
