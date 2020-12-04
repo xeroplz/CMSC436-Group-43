@@ -85,8 +85,7 @@ class NightSelectionActivity : AppCompatActivity() {
             R.layout.player_list_item,
             currPlayers
         )
-
-        listView.setBackgroundColor(resources.getColor(R.color.white, null))
+        
         selected = ""
 
         /* position is items position in current players array */
