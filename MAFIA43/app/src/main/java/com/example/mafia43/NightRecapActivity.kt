@@ -24,6 +24,7 @@ class NightRecapActivity : AppCompatActivity() {
     private lateinit var mAudioManager: AudioManager
     private lateinit var mSoundPool: SoundPool
     private var mSoundId: Int = 0
+    private var cont = false
 
     // Audio volume
     private var mStreamVolume: Float = 0.toFloat()
@@ -87,24 +88,29 @@ class NightRecapActivity : AppCompatActivity() {
         }
 
         mContinueButton.setOnClickListener {
-            val nightIntent = Intent(this@NightRecapActivity, NightSaveActivity::class.java)
+            if(cont) {
+                val nightIntent = Intent(this@NightRecapActivity, NightSaveActivity::class.java)
 
-            /* You have to create a Bundle to pass the Player array */
-            val args = Bundle()
-            args.putSerializable("playersArr", mPlayers as Serializable)
-            nightIntent.putExtra("Bundle", args)
-            nightIntent.putExtra("AlivePlayers", intent.getIntExtra("AlivePlayers", mPlayers.size))
-            nightIntent.putExtra("Kill", intent.getStringExtra("Kill"))
-            nightIntent.putExtra("Random", rand)
+                /* You have to create a Bundle to pass the Player array */
+                val args = Bundle()
+                args.putSerializable("playersArr", mPlayers as Serializable)
+                nightIntent.putExtra("Bundle", args)
+                nightIntent.putExtra(
+                    "AlivePlayers",
+                    intent.getIntExtra("AlivePlayers", mPlayers.size)
+                )
+                nightIntent.putExtra("Kill", intent.getStringExtra("Kill"))
+                nightIntent.putExtra("Random", rand)
 
-            if (killedPlayer == intent.getStringExtra("Save")) {
-                nightIntent.putExtra("Saved", true)
+                if (killedPlayer == intent.getStringExtra("Save")) {
+                    nightIntent.putExtra("Saved", true)
+                    startActivity(nightIntent)
+                } else {
+                    nightIntent.putExtra("Saved", false)
+                }
+                
                 startActivity(nightIntent)
-            } else {
-                nightIntent.putExtra("Saved", false)
             }
-
-            startActivity(nightIntent)
         }
     }
 
@@ -123,7 +129,10 @@ class NightRecapActivity : AppCompatActivity() {
             .setAudioAttributes(audioAttributes)
             .build()
 
-        mSoundPool.setOnLoadCompleteListener { soundPool, sampleId, status ->  mSoundPool.play(mSoundId, mStreamVolume, mStreamVolume, 1, 0, 1f) }
+        mSoundPool.setOnLoadCompleteListener { soundPool, sampleId, status ->
+            mSoundPool.play(mSoundId, mStreamVolume, mStreamVolume, 1, 0, 1f)
+            cont = true
+        }
 
         mSoundId = mSoundPool.load(this@NightRecapActivity, R.raw.night_recap, 1)
     }
