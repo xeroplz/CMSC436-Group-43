@@ -140,7 +140,7 @@
         android:id="@+id/timer_text"
         android:layout_width="60dp"
         android:layout_height="30dp"
-        android:text="70dp"
+        android:textSize="20sp"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

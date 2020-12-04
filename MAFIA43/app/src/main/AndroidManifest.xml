@@ -39,6 +39,9 @@
 
         <activity android:name=".RoleAssignmentActivity" android:windowSoftInputMode="adjustPan">
         </activity>
+
+        <activity android:name=".VoteRecapActivity">
+        </activity>
     </application>
 
 </manifest>
