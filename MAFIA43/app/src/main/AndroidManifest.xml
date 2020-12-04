@@ -37,7 +37,7 @@
         <activity android:name=".Voting">
         </activity>
 
-        <activity android:name=".RoleAssignmentActivity">
+        <activity android:name=".RoleAssignmentActivity" android:windowSoftInputMode="adjustPan">
         </activity>
     </application>
 

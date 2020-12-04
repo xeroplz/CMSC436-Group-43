@@ -14,8 +14,8 @@
         android:fontFamily="@font/opensans_bold"
         android:textSize="30dp"
         android:textAppearance="@android:style/TextAppearance.Material.Display1"
-        android:textColor="@color/white"
-        android:background="@drawable/border_light"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@drawable/border_dark"
         tools:ignore="MissingConstraints"
         />
 

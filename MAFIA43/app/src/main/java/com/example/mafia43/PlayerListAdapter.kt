@@ -8,10 +8,11 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
-class PlayerListAdapter(context: Context, resource: Int, objects: Array<Player>) :
+class PlayerListAdapter(context: Context, resource: Int, objects: Array<Player>, themeDark: Boolean = false) :
     ArrayAdapter<Player>(context, resource, objects) {
 
     private var mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
+    private var mDark = themeDark
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
@@ -21,7 +22,12 @@ class PlayerListAdapter(context: Context, resource: Int, objects: Array<Player>)
         if (null == convertView) {
 
             // Not recycled. Create the View
-            newView = mLayoutInflater.inflate(R.layout.player_list_item, parent, false)
+            // Mode False = light | True = dark
+            if (!mDark) {
+                newView = mLayoutInflater.inflate(R.layout.player_list_item, parent, false)
+            } else {
+                newView = mLayoutInflater.inflate(R.layout.player_list_item_dark, parent, false)
+            }
 
             // Cache View information in ViewHolder Object
             val viewHolder = ViewHolder()
