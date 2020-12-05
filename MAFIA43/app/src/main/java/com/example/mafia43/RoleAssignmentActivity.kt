@@ -48,6 +48,9 @@ class RoleAssignmentActivity : AppCompatActivity() {
                 if (!playerNameList!!.contains(currentText)) {
                     playerNameList.add(currentText)
                     updateList()
+                    mTextBox!!.text.clear()
+
+                    // Show toast that the player has been added.
                     Toast.makeText(this, "$currentText added to the list.", Toast.LENGTH_SHORT).show()
                 } else {
                     // Show toast that the player exists already
@@ -92,6 +95,8 @@ class RoleAssignmentActivity : AppCompatActivity() {
         return fakePlayerArrayList.toTypedArray()
     }
 
-    // Override onBackPressed to remove last-entered player's name from the list
-
+    // Remove last person from lest when back is pressed
+    public override fun onBackPressed() {
+        //super.onBackPressed()
+    }
 }
