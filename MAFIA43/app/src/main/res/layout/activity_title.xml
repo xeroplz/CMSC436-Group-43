@@ -75,7 +75,7 @@
         android:id="@+id/play_button"
         android:layout_width="250dp"
         android:layout_height="90dp"
-        android:text="S T A R T"
+        android:text="P L A Y"
         android:fontFamily="@font/opensans_bold"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="35dp"

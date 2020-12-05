@@ -8,18 +8,18 @@
 
     <!-- Background -->
     <TextView
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:text=""
-        android:background="@color/colorPrimaryDark"/>
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:text="" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/opensans_bold"
         android:text="S E T U P"
-        android:textSize="25dp"
         android:textColor="@color/white"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -32,21 +32,20 @@
         android:layout_height="wrap_content"
         android:src="@drawable/hdiv_light"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.09"
-        app:layout_constraintHorizontal_bias="0.5"/>
+        app:layout_constraintVertical_bias="0.09" />
 
-    <!-- Credits -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/opensans_bold"
-        android:textAlignment="center"
         android:text="Player Entry"
-        android:textSize="25dp"
+        android:textAlignment="center"
         android:textColor="@color/white"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -57,29 +56,30 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/opensans_bold"
-        android:textAlignment="center"
         android:text="Please use the text box to enter the names of the players."
-        android:textSize="25dp"
+        android:textAlignment="center"
         android:textColor="@color/white"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.21" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/ar_nested_scroll"
         android:layout_width="300dp"
         android:layout_height="280dp"
         android:background="@drawable/border_light"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.532"
-    android:fillViewport="true">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.69">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -88,10 +88,10 @@
                 android:id="@+id/ar_player_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                tools:ignore="MissingConstraints"
+                android:choiceMode="singleChoice"
                 android:nestedScrollingEnabled="true"
-                android:choiceMode="singleChoice"/>
+                android:orientation="vertical"
+                tools:ignore="MissingConstraints" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -99,47 +99,49 @@
         android:id="@+id/ar_text_box"
         android:layout_width="220dp"
         android:layout_height="50dp"
-        android:lines="1"
-        android:minLines="1"
         android:background="@color/white"
         android:fontFamily="@font/opensans_bold"
-        android:textSize="25dp"
         android:hint="Name"
+        android:lines="1"
+        android:maxLines="1"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:singleLine="true"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.29"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75"
-        app:layout_constraintHorizontal_bias="0.29"/>
+        app:layout_constraintVertical_bias="0.38" />
 
+    <!-- OK Button -->
     <Button
         android:id="@+id/ar_ok_button"
         android:layout_width="70dp"
         android:layout_height="50dp"
-        android:text="OK"
+        android:background="@color/white"
         android:fontFamily="@font/opensans_bold"
-        android:textColor="@color/white"
-        android:textSize="120px"
-        android:background="@color/entryButtonColor"
+        android:text="OK"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75"
-        app:layout_constraintHorizontal_bias="0.83"/>
+        app:layout_constraintVertical_bias="0.38" />
 
     <!-- Continue -->
     <Button
         android:id="@+id/ar_continue_button"
         android:layout_width="250dp"
         android:layout_height="80dp"
-        android:text="CONFIRM"
+        android:background="@color/white"
         android:fontFamily="@font/opensans_bold"
+        android:text="S T A R T"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30dp"
-        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
