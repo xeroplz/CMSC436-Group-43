@@ -9,17 +9,16 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import java.io.Serializable
 
-// TODO: Send voting to DayRecap Activity, SavedInstanceState, disable Back Button
+// TODO: Send voting to DayRecap Activity, SavedInstanceState, disable Back Button, disable confirm button until someone is selected
 class Voting : AppCompatActivity() {
     lateinit var mTimerText : TextView
-    var timeOut : Boolean = false
     lateinit var confirmButton : Button
     lateinit var skipButton : Button
     lateinit var mPlayers : Array<Player>
     lateinit var mBundle : Bundle
-    lateinit var votedOff : Player
+    var defaultPlayer = Player("No one", -1)
+    var votedOff : Player = defaultPlayer
     var numAlive : Int = 0
     lateinit var mAlivePlayers : Array<Player>
 
@@ -65,9 +64,10 @@ class Voting : AppCompatActivity() {
 
         listView.setBackgroundColor(resources.getColor(R.color.white, null))
 
-        /* position is items position in players array */
-        listView.setOnItemClickListener{ _: AdapterView<*>, _: View, position: Int, _: Long ->
 
+        /* position is items position in players array */
+        listView.setOnItemClickListener{ _: AdapterView<*>, view : View, position: Int, _: Long ->
+            view.isSelected = true;
             Log.i(TAG, mAlivePlayers[position].name())
             votedOff = mAlivePlayers[position]
 
@@ -77,6 +77,8 @@ class Voting : AppCompatActivity() {
         confirmButton = findViewById(R.id.confirm_button)
 
         confirmButton.setOnClickListener{
+
+            if(votedOff.name() != defaultPlayer.name()) {
                 // Kill off player in players object arrays
                 for (i in mPlayers.indices) {
                     if (mPlayers[i].name() == votedOff.name()) {
@@ -86,6 +88,10 @@ class Voting : AppCompatActivity() {
 
                 numAlive -= 1
                 checkWinCondition() // Goes to next activity
+            }else{
+                Log.i("votedOff", votedOff.name())
+                Toast.makeText(this, "Select someone to vote off.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         skipButton = findViewById(R.id.skip_button)
@@ -93,6 +99,10 @@ class Voting : AppCompatActivity() {
         skipButton.setOnClickListener{
             goToVotingRecap("No one")
         }
+    }
+
+    override fun onBackPressed() {
+        //don't do anything?
     }
 
     fun infoDialog(){
@@ -141,18 +151,21 @@ class Voting : AppCompatActivity() {
             }
         }
 
-        goToVotingRecap(votedOff.name())
-//        when {
-//            numMafiaAlive == 0 -> {
-//                /* civilians win */
-//            }
-//            numCivilianAlive <= MAFIA -> { // 1 civilian and 1 civilian, doctor and detective are civilians
-//                // mafia wins
-//            }
-//            else -> {
-//                goToVotingRecap(votedOff.name())
-//            }
-//        }
+  //      TODO: change this to check for win condition
+//        goToVotingRecap(votedOff.name())
+        when {
+            numMafiaAlive == 0 -> {
+                /* civilians win */
+                Log.i("winCondition", "civilians win")
+            }
+            numCivilianAlive <= MAFIA -> { // 1 civilian and 1 civilian, doctor and detective are civilians
+                // mafia wins
+                Log.i("winCondition", "mafia wins")
+            }
+            else -> {
+                goToVotingRecap(votedOff.name())
+            }
+        }
 
     }
 
