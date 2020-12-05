@@ -1,7 +1,9 @@
 package com.example.mafia43
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.media.AudioManager
 import android.media.AudioAttributes
 import android.media.SoundPool
@@ -10,6 +12,7 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import java.io.Serializable
 
@@ -135,6 +138,27 @@ class NightRecapActivity : AppCompatActivity() {
         }
 
         mSoundId = mSoundPool.load(this@NightRecapActivity, R.raw.night_recap, 1)
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this@NightRecapActivity)
+
+        builder.setTitle("Quit Game")
+        builder.setMessage("Are you sure you want to end the game?")
+        builder.setNegativeButton("Yes", DialogInterface.OnClickListener{ _, _ ->
+            val restartIntent = Intent(this@NightRecapActivity, TitleActivity::class.java)
+            startActivity(restartIntent)
+        })
+        builder.setPositiveButton("No", null)
+
+        val alertDialog = builder.create()
+        alertDialog.setCanceledOnTouchOutside(false)
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.GRAY)
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.GRAY)
+        }
+        alertDialog.show()
     }
 
     companion object{

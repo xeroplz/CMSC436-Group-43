@@ -1,9 +1,12 @@
 package com.example.mafia43
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import java.io.Serializable
 
@@ -47,7 +50,7 @@ class NightSaveActivity : AppCompatActivity() {
                 10 -> mTextView.setText("It was a pear. What were you expecting to happen?")
                 11 -> mTextView.setText("Luckily, " + killedPlayer + " knew of past stories of mercury pills and did not take the pills.")
                 12 -> mTextView.setText("After a few seconds, they calmed down and returned their donkey to their pen.")
-                13 -> mTextView.setText("Luckily, " + killedPlayer + " woke up and realized what was happening and spit out the coals in their month. Unfortunately, they lost their sense of taste, but at least, they are still alive.")
+                13 -> mTextView.setText("Luckily, " + killedPlayer + " woke up and realized what was happening and spit out the coals in their mouth. Unfortunately, they lost their sense of taste, but at least, they are still alive.")
                 14 -> mTextView.setText(killedPlayer + " started to crack some jokes to their tormentor. They said, “Turn me over--I’m done on this side”. This amused their tormentor and the tormentor ended up letting them go, saying “same time next week and at your place or mine?”")
                 15 -> mTextView.setText("Luckily, " + killedPlayer + " was a snake charmer and was able to have the snakes help them out of the pit.")
                 16 -> mTextView.setText(killedPlayer + " was rushed to the hospital and the doctor found that they only sustained minor wounds.")
@@ -84,6 +87,27 @@ class NightSaveActivity : AppCompatActivity() {
                 startActivity(voteIntent)
             }
         }
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this@NightSaveActivity)
+
+        builder.setTitle("Quit Game")
+        builder.setMessage("Are you sure you want to end the game?")
+        builder.setNegativeButton("Yes", DialogInterface.OnClickListener{ _, _ ->
+            val restartIntent = Intent(this@NightSaveActivity, TitleActivity::class.java)
+            startActivity(restartIntent)
+        })
+        builder.setPositiveButton("No", null)
+
+        val alertDialog = builder.create()
+        alertDialog.setCanceledOnTouchOutside(false)
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.GRAY)
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.GRAY)
+        }
+        alertDialog.show()
     }
 
     companion object{

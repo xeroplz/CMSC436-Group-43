@@ -1,13 +1,13 @@
 package com.example.mafia43
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.Button
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import java.io.Serializable
 
@@ -99,7 +99,7 @@ class NightSelectionActivity : AppCompatActivity() {
 
         mConfirmButton.setOnClickListener{
             if (selected == "") {
-                mPromptView.setText(mPromptView.text.toString() + "\nSelect a player...")
+                Toast.makeText(this, "Please select a player...", Toast.LENGTH_SHORT).show()
             } else {
                 when (role) {
                     MAFIA -> {
@@ -144,6 +144,27 @@ class NightSelectionActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this@NightSelectionActivity)
+
+        builder.setTitle("Quit Game")
+        builder.setMessage("Are you sure you want to end the game?")
+        builder.setNegativeButton("Yes", DialogInterface.OnClickListener{ _, _ ->
+            val restartIntent = Intent(this@NightSelectionActivity, TitleActivity::class.java)
+            startActivity(restartIntent)
+        })
+        builder.setPositiveButton("No", null)
+
+        val alertDialog = builder.create()
+        alertDialog.setCanceledOnTouchOutside(false)
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.GRAY)
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.GRAY)
+        }
+        alertDialog.show()
     }
 
     companion object{
