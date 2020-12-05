@@ -74,7 +74,9 @@ class NightSaveActivity : AppCompatActivity() {
 
         mContinueButton.setOnClickListener {
             if (alive <= 2) {
-
+                val endIntent = Intent(this@NightSaveActivity, EndActivity::class.java)
+                endIntent.putExtra("Mafia", true)
+                startActivity(endIntent)
             } else {
                 /* Creating intent for Voting Activity using players data.
                 Add players array as extra to intent. */
