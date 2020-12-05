@@ -45,6 +45,9 @@
 
         <activity android:name=".VoteRecapActivity">
         </activity>
+
+        <activity android:name=".EndActivity">
+        </activity>
     </application>
 
 </manifest>

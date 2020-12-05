@@ -1,9 +1,12 @@
 package com.example.mafia43
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import java.io.Serializable
 
@@ -50,6 +53,27 @@ class DetectiveActivity : AppCompatActivity() {
             nightIntent.putExtra("Save", intent.getStringExtra("Save"))
             startActivity(nightIntent)
         }
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this@DetectiveActivity)
+
+        builder.setTitle("Quit Game")
+        builder.setMessage("Are you sure you want to end the game?")
+        builder.setNegativeButton("Yes", DialogInterface.OnClickListener{ _, _ ->
+            val restartIntent = Intent(this@DetectiveActivity, TitleActivity::class.java)
+            startActivity(restartIntent)
+        })
+        builder.setPositiveButton("No", null)
+
+        val alertDialog = builder.create()
+        alertDialog.setCanceledOnTouchOutside(false)
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.GRAY)
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.GRAY)
+        }
+        alertDialog.show()
     }
 
     companion object{

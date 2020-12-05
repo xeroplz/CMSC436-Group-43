@@ -1,7 +1,9 @@
 package com.example.mafia43
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.media.AudioManager
 import android.media.AudioAttributes
 import android.media.SoundPool
@@ -10,6 +12,7 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import java.io.Serializable
 
@@ -81,7 +84,7 @@ class NightRecapActivity : AppCompatActivity() {
             16 -> mTextView.setText("At night, " + killedPlayer + " was stabbed whilst on the toilet by the mafia, who were hiding underneath.")
             17 -> mTextView.setText("At night, " + killedPlayer + " went to sit on their new IKEA chair, but it turns out that the chair was missing a leg because the mafia owns IKEA.")
             18 -> mTextView.setText("At night, " + killedPlayer + " was rolled up in a rug by the mafia. The mafia then sent horses to trample over them.")
-            19 -> mTextView.setText("At night, " + killedPlayer + " was sleeping in a linen sheet. The mafia came and poured distilled spirits on the linen sheet and sent the highly flammable sheet on fire.")
+            19 -> mTextView.setText("At night, " + killedPlayer + " was sleeping in a linen sheet. The mafia came and poured distilled spirits on the linen sheet and set the highly flammable sheet on fire.")
             20 -> mTextView.setText("At night, the mafia came and took " + killedPlayer + ". The mafia put " + killedPlayer + " in a barrel of Malmsey wine.")
             21 -> mTextView.setText("At night, the mafia came to " + killedPlayer + "’s house and started to play their favorite song. This made " + killedPlayer + " start dancing not realizing it was on a ten hour loop.")
             22 -> mTextView.setText("At night, " + killedPlayer + " tripped over their own beard.")
@@ -135,6 +138,27 @@ class NightRecapActivity : AppCompatActivity() {
         }
 
         mSoundId = mSoundPool.load(this@NightRecapActivity, R.raw.night_recap, 1)
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this@NightRecapActivity)
+
+        builder.setTitle("Quit Game")
+        builder.setMessage("Are you sure you want to end the game?")
+        builder.setNegativeButton("Yes", DialogInterface.OnClickListener{ _, _ ->
+            val restartIntent = Intent(this@NightRecapActivity, TitleActivity::class.java)
+            startActivity(restartIntent)
+        })
+        builder.setPositiveButton("No", null)
+
+        val alertDialog = builder.create()
+        alertDialog.setCanceledOnTouchOutside(false)
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.GRAY)
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.GRAY)
+        }
+        alertDialog.show()
     }
 
     companion object{
