@@ -187,16 +187,23 @@ class Voting : AppCompatActivity() {
                 /* civilians win */
                 Log.i("winCondition", "civilians win")
                 val winIntent = Intent(this@Voting, EndActivity::class.java)
-                winIntent.putExtra("mafia", false)
-                winIntent.putExtra("playersArr", mPlayers)
+                val args = Bundle()
+                args.putSerializable("playersArr", this.mPlayers)
+
+                winIntent.putExtra("Bundle", args)
+                winIntent.putExtra("Mafia", false)
                 startActivity(winIntent)
             }
             numCivilianAlive <= MAFIA -> { // 1 civilian and 1 civilian, doctor and detective are civilians
                 // mafia wins
                 Log.i("winCondition", "mafia wins")
                 val winIntent = Intent(this@Voting, EndActivity::class.java)
-                winIntent.putExtra("mafia", true)
-                winIntent.putExtra("playersArr", mPlayers)
+                val args = Bundle()
+                args.putSerializable("playersArr", this.mPlayers)
+
+                winIntent.putExtra("Bundle", args)
+                winIntent.putExtra("Mafia", true)
+
                 startActivity(winIntent)
             }
             else -> {

@@ -1,12 +1,15 @@
 package com.example.mafia43
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import java.io.Serializable
 import kotlin.random.Random
@@ -165,6 +168,25 @@ class RoleAssignmentActivity : AppCompatActivity() {
         if (size >= 1) {
             playerNameList.removeAt(size - 1)
             updateList()
+        }else{
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this@RoleAssignmentActivity)
+
+            builder.setTitle("Quit Game")
+            builder.setMessage("Are you sure you want to end the game?")
+            builder.setNegativeButton("Yes", DialogInterface.OnClickListener{ _, _ ->
+                val restartIntent = Intent(this@RoleAssignmentActivity, TitleActivity::class.java)
+                startActivity(restartIntent)
+            })
+            builder.setPositiveButton("No", null)
+
+            val alertDialog = builder.create()
+            alertDialog.setCanceledOnTouchOutside(false)
+            alertDialog.setOnShowListener {
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.GRAY)
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.GRAY)
+            }
+            alertDialog.show()
         }
+
     }
 }
