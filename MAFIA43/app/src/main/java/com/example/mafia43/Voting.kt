@@ -2,6 +2,7 @@ package com.example.mafia43
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -10,7 +11,7 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
-// TODO: Send voting to DayRecap Activity, SavedInstanceState, disable Back Button, disable confirm button until someone is selected
+// TODO: disable confirm button until someone is selected
 class Voting : AppCompatActivity() {
     lateinit var mTimerText : TextView
     lateinit var confirmButton : Button
@@ -20,6 +21,9 @@ class Voting : AppCompatActivity() {
     var defaultPlayer = Player("No one", -1)
     var votedOff : Player = defaultPlayer
     var numAlive : Int = 0
+    private lateinit var mTimer : CountDownTimer
+    var timerRunning : Boolean = false
+    var miliLeft : Long = 0
     lateinit var mAlivePlayers : Array<Player>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,23 +40,9 @@ class Voting : AppCompatActivity() {
         /* set Timer */
         mTimerText = findViewById(R.id.timer_text)
 
-        object : CountDownTimer(30000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                mTimerText.text = (millisUntilFinished / 1000).toString()
-                //here you can have your logic to set text to edittext
-            }
+        timerStart(30000)
 
-            override fun onFinish() {
-
-                mTimerText.text = "Time is up!"
-                infoDialog()
-            }
-        }.start()
-
-        /* Instantiate listView and Adapter
-
-        If you want to recreate this, just create a ListView in the layout resource file,
-         and use your listView instead of "player_list" */
+        /* Instantiate listView and Adapter */
 
         val listView = findViewById<ListView>(R.id.player_list)
         listView.adapter = PlayerListAdapter(
@@ -62,15 +52,10 @@ class Voting : AppCompatActivity() {
             true
         )
 
-        listView.setBackgroundColor(resources.getColor(R.color.white, null))
-
-
         /* position is items position in players array */
         listView.setOnItemClickListener{ _: AdapterView<*>, view : View, position: Int, _: Long ->
             view.isSelected = true;
-            Log.i(TAG, mAlivePlayers[position].name())
             votedOff = mAlivePlayers[position]
-
         }
 
         /* When button is clicked, set person voted off to die() */
@@ -101,8 +86,47 @@ class Voting : AppCompatActivity() {
         }
     }
 
+    private fun timerStart(currMilis : Long){
+        if(!timerRunning) {
+            mTimer = object : CountDownTimer(currMilis, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    mTimerText.text = (millisUntilFinished / 1000).toString()
+                    miliLeft = millisUntilFinished
+                }
+
+                override fun onFinish() {
+
+                    mTimerText.text = "Time is up!"
+                    infoDialog()
+                }
+            }
+            mTimer.start()
+            timerRunning = true
+        }
+    }
+
     override fun onBackPressed() {
-        //don't do anything?
+        // don't do anything
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        /* Pause timer when app is close */
+        if(mTimer != null){
+            mTimer.cancel()
+        }
+
+        timerRunning = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        timerStart(miliLeft)
+    }
+
+    public override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        super.onSaveInstanceState(savedInstanceState)
     }
 
     fun infoDialog(){
@@ -119,6 +143,10 @@ class Voting : AppCompatActivity() {
 
         val alertDialog = builder.create()
         alertDialog.setCanceledOnTouchOutside(false)
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.GRAY)
+        }
+
         alertDialog.show()
     }
 
@@ -152,21 +180,29 @@ class Voting : AppCompatActivity() {
         }
 
   //      TODO: change this to check for win condition
+        //true if mafia wins, false if they lose
 //        goToVotingRecap(votedOff.name())
         when {
             numMafiaAlive == 0 -> {
                 /* civilians win */
                 Log.i("winCondition", "civilians win")
+                val winIntent = Intent(this@Voting, EndActivity::class.java)
+                winIntent.putExtra("mafia", false)
+                winIntent.putExtra("playersArr", mPlayers)
+                startActivity(winIntent)
             }
             numCivilianAlive <= MAFIA -> { // 1 civilian and 1 civilian, doctor and detective are civilians
                 // mafia wins
                 Log.i("winCondition", "mafia wins")
+                val winIntent = Intent(this@Voting, EndActivity::class.java)
+                winIntent.putExtra("mafia", true)
+                winIntent.putExtra("playersArr", mPlayers)
+                startActivity(winIntent)
             }
             else -> {
                 goToVotingRecap(votedOff.name())
             }
         }
-
     }
 
     /* Display only alive players */
