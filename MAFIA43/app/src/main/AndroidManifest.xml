@@ -40,6 +40,9 @@
         <activity android:name=".RoleAssignmentActivity" android:windowSoftInputMode="adjustPan">
         </activity>
 
+        <activity android:name=".RoleViewActivity">
+        </activity>
+
         <activity android:name=".VoteRecapActivity">
         </activity>
 

@@ -10,8 +10,8 @@ class TitleActivity : AppCompatActivity() {
 
     }
 
-    private lateinit var mStartButton : Button
-    private lateinit var mTempButton : Button
+    private lateinit var mStartButton: Button
+    private lateinit var mTempButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

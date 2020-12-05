@@ -14,15 +14,25 @@ class Player : Serializable {
         this.privRole = role
     }
 
-    fun name() : String {
+    fun name(): String {
         return privName
     }
 
-    fun role() : Int {
+    fun role(): Int {
         return privRole
     }
 
-    fun alive() : Boolean {
+    fun roleString(): String {
+        when (privRole) {
+            1 -> return "Mafia"
+            2 -> return "Doctor"
+            3 -> return "Detective"
+            4 -> return "Civilian"
+            else -> return "Undefined"
+        }
+    }
+
+    fun alive(): Boolean {
         return privAlive
     }
 
