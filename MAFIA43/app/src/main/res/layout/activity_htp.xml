@@ -55,7 +55,7 @@
     <!-- Text -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/ar_nested_scroll"
-        android:layout_width="320dp"
+        android:layout_width="350dp"
         android:layout_height="480dp"
         android:background="@drawable/border_dark"
         android:fillViewport="true"
