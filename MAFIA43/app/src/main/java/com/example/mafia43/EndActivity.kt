@@ -27,9 +27,7 @@ class EndActivity : AppCompatActivity() {
         for(player in mPlayers) { playerNameList.add(player.name()) }
 
         if (mafiaWin) {
-            setContentView(R.layout.civilian_win)
-            val textView = findViewById(R.id.cWinText) as TextView
-            textView.setText("Mafia Wins...")
+            setContentView(R.layout.mafia_win)
         } else {
             setContentView(R.layout.civilian_win)
         }

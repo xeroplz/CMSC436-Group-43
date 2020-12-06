@@ -51,7 +51,25 @@ class DetectiveActivity : AppCompatActivity() {
             nightIntent.putExtra("AlivePlayers", intent.getIntExtra("AlivePlayers", mPlayers.size))
             nightIntent.putExtra("Kill", intent.getStringExtra("Kill"))
             nightIntent.putExtra("Save", intent.getStringExtra("Save"))
-            startActivity(nightIntent)
+
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this@DetectiveActivity)
+
+            builder.setTitle("Please place phone back in the center")
+            builder.setMessage("when ready, press OK")
+            builder.setCancelable(false);
+            builder.setPositiveButton("OK", DialogInterface.OnClickListener{ _,_ ->
+                // go to next Night Activity
+                startActivity(nightIntent)
+
+            })
+
+            val alertDialog = builder.create()
+            alertDialog.setCanceledOnTouchOutside(false)
+            alertDialog.setOnShowListener {
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.GRAY)
+            }
+
+            alertDialog.show()
         }
     }
 

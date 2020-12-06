@@ -179,9 +179,8 @@ class Voting : AppCompatActivity() {
             }
         }
 
-  //      TODO: change this to check for win condition
-        //true if mafia wins, false if they lose
-//        goToVotingRecap(votedOff.name())
+        /* Check for win condition */
+
         when {
             numMafiaAlive == 0 -> {
                 /* civilians win */
