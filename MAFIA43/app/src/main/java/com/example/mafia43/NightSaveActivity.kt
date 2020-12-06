@@ -75,6 +75,11 @@ class NightSaveActivity : AppCompatActivity() {
         mContinueButton.setOnClickListener {
             if (alive <= 2) {
                 val endIntent = Intent(this@NightSaveActivity, EndActivity::class.java)
+
+                /* You have to create a Bundle to pass the Player array */
+                val args = Bundle()
+                args.putSerializable("playersArr", mPlayers as Serializable)
+                endIntent.putExtra("Bundle", args)
                 endIntent.putExtra("Mafia", true)
                 startActivity(endIntent)
             } else {
