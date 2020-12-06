@@ -11,7 +11,6 @@ class TitleActivity : AppCompatActivity() {
     }
 
     private lateinit var mStartButton: Button
-    private lateinit var mTempButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,13 +21,6 @@ class TitleActivity : AppCompatActivity() {
         mStartButton.setOnClickListener {
             // Start the next activity!
             val intent = Intent(this@TitleActivity, RoleAssignmentActivity::class.java)
-            startActivity(intent)
-        }
-
-        mTempButton = findViewById(R.id.temp_button)
-
-        mTempButton.setOnClickListener {
-            val intent = Intent(this@TitleActivity, Temp::class.java)
             startActivity(intent)
         }
     }
