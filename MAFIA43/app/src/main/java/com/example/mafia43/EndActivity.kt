@@ -67,7 +67,7 @@ class EndActivity : AppCompatActivity() {
             }
 
             // Get true Player array with  roles assigned
-            val playerArray = realPlayerArrayList.toTypedArray()
+            val playerArray = realPlayerArrayList.shuffled().toTypedArray()
 
             // Start the activity that tells people their roles.
             val roleViewIntent = Intent(this@EndActivity, RoleViewActivity::class.java)

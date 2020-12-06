@@ -161,9 +161,7 @@ class RoleAssignmentActivity : AppCompatActivity() {
         // The first 3 players will always be Mafia, Doctor, and Detective respectively
         // Shuffle so that role viewing in the next activity doesn't give away the roles so
         // obviously.
-        realPlayerArrayList.shuffle()
-
-        return realPlayerArrayList.toTypedArray()
+        return realPlayerArrayList.shuffled().toTypedArray()
     }
 
     // Remove last person from lest when back is pressed
