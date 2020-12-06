@@ -50,7 +50,7 @@ class RoleAssignmentActivity : AppCompatActivity() {
         mOkButton.setOnClickListener {
             // Only do something if the name field isn't empty
             val currentText = mTextBox.text.toString()
-            Log.i(TAG, "Current Text: $currentText")
+
             if (currentText != "") {
                 // Check for duplicate name
                 if (!playerNameList.contains(currentText)) {
