@@ -7,6 +7,45 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/opensans_bold"
+        android:text="@string/game"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <!-- HDiV -->
+    <ImageView
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/hdiv_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.09" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/opensans_bold"
+        android:text="@string/over"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
         android:id="@+id/cWinText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,13 +63,17 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="167dp"
         android:layout_marginBottom="273dp"
         android:fontFamily="@font/opensans_bold"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="15dp"
         android:text="Same Players"
+        android:layout_marginEnd="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,13 +81,16 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="167dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="273dp"
         android:fontFamily="@font/opensans_bold"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimaryDark"
         android:text="New Players"
+        android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button"
@@ -70,14 +116,17 @@
 
     <Button
         android:id="@+id/titleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
         android:layout_marginStart="109dp"
         android:layout_marginTop="104dp"
         android:layout_marginEnd="109dp"
         android:layout_marginBottom="121dp"
         android:fontFamily="@font/opensans_bold"
-        android:text="Return to Title Screen"
+        android:textSize="20dp"
+        android:text="Return to\nTitle Screen"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

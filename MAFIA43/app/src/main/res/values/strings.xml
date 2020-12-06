@@ -1,11 +1,21 @@
 <resources>
     <string name="app_name">MAFIA43</string>
 
+    <string name="app_name_stretched">M A F I A 4 3</string>
+    <string name="htp_title">How To Play</string>
+    <string name="status_update">Sequence</string>
+
     <string name="restart">Restart Game</string>
 
-    <string name="night">NIGHT</string>
-    <string name="night_role">ROLE</string>
+    <string name="day">D A Y</string>
+    <string name="vote">Voting Action</string>
+
+    <string name="night">N I G H T</string>
+    <string name="night_role">Role Action</string>
     <string name="night_selection">Who?</string>
+
+    <string name="game">G A M E</string>
+    <string name="over">O V E R</string>
 
     <string name="voting">VOTING</string>
     <!-- This string will have to be dynamic as days change -->
