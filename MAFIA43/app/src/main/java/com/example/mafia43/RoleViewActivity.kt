@@ -78,6 +78,22 @@ class RoleViewActivity: AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        //super.onBackPressed()
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this@RoleViewActivity)
+
+        builder.setTitle("Quit Game")
+        builder.setMessage("Are you sure you want to end the game?")
+        builder.setNegativeButton("Yes", DialogInterface.OnClickListener{ _, _ ->
+            val restartIntent = Intent(this@RoleViewActivity, TitleActivity::class.java)
+            startActivity(restartIntent)
+        })
+        builder.setPositiveButton("No", null)
+
+        val alertDialog = builder.create()
+        alertDialog.setCanceledOnTouchOutside(false)
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.GRAY)
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.GRAY)
+        }
+        alertDialog.show()
     }
 }
