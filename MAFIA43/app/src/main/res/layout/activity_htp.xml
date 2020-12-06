@@ -4,86 +4,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TitleActivity">
+    tools:context=".HowToPlayActivity">
 
     <!-- Background -->
     <TextView
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:text=""
-        android:background="@color/colorPrimaryDark"/>
+        android:background="@color/white"/>
 
-    <!-- Title -->
     <TextView
-        android:id="@+id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/opensans_bold"
-        android:text="MAFIA43"
-        android:textSize="70dp"
-        android:textColor="@color/white"
+        android:text="M A F I A 4 3"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.05" />
 
+    <!-- HDiV -->
     <ImageView
         android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/hdiv_light"
+        android:src="@drawable/hdiv_dark"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.28"
-        app:layout_constraintHorizontal_bias="0.5"/>
+        app:layout_constraintVertical_bias="0.09" />
 
-    <!-- Credits -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/opensans_regular"
+        android:fontFamily="@font/opensans_bold"
+        android:text="How To Play"
         android:textAlignment="center"
-        android:text="Presented By:\nCMSC436 Group 43\n\nMatt Corrado\nNaomi Perez\nJulian Travis"
-        android:textSize="20dp"
-        android:textColor="@color/white"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.40" />
+        app:layout_constraintVertical_bias="0.1" />
 
-    <!-- Play Button -->
+    <!-- Text -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/ar_nested_scroll"
+        android:layout_width="320dp"
+        android:layout_height="480dp"
+        android:background="@drawable/border_dark"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45">
+        <TextView
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans_semibold"
+            android:textAlignment="textStart"
+            android:text="@string/htp"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Back Button -->
     <Button
-        android:id="@+id/play_button"
+        android:id="@+id/htp_back_button"
         android:layout_width="250dp"
         android:layout_height="90dp"
-        android:text="P L A Y"
+        android:text="B A C K"
         android:fontFamily="@font/opensans_bold"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/white"
         android:textSize="35dp"
-        android:background="@color/white"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75" />
-
-    <!-- How to Play Button -->
-    <Button
-        android:id="@+id/how_to_play_button"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:text="HOW TO PLAY"
-        android:fontFamily="@font/opensans_bold"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintVertical_bias="0.93" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
