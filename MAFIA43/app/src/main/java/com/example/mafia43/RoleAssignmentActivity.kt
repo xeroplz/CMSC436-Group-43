@@ -158,6 +158,11 @@ class RoleAssignmentActivity : AppCompatActivity() {
             Log.i(TAG, "Player: ${player.name()}, Role: ${player.roleString()}, Alive: ${player.alive()}")
         }
 
+        // The first 3 players will always be Mafia, Doctor, and Detective respectively
+        // Shuffle so that role viewing in the next activity doesn't give away the roles so
+        // obviously.
+        realPlayerArrayList.shuffle()
+
         return realPlayerArrayList.toTypedArray()
     }
 
