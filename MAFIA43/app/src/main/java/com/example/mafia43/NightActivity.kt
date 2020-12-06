@@ -59,7 +59,7 @@ class NightActivity : AppCompatActivity() {
                 for (player in mPlayers) {
                     if(player.role() == MAFIA) {
                         if(player.alive()) {
-                            mTextView.text = "Mafia Awake..."
+                            mTextView.text = "Mafia Awaken..."
                             mHandler.postDelayed(mRunnable, 1000)
                         } else {
                             /* send to Mafia loss screen */
@@ -71,7 +71,7 @@ class NightActivity : AppCompatActivity() {
                 for (player in mPlayers) {
                     if(player.role() == DOCTOR) {
                         if(player.alive()) {
-                            mTextView.text = "Doctor Awake..."
+                            mTextView.text = "Doctor Awaken..."
                             mHandler.postDelayed(mRunnable, 3000)
                         } else {
                             mHandler.postDelayed(mRunnable, 3000)
@@ -102,7 +102,7 @@ class NightActivity : AppCompatActivity() {
                             }
                         }
                         if(player.alive()) {
-                            mTextView.text = "Detective Awake..."
+                            mTextView.text = "Detective Awaken..."
                         } else {
                             /* Send to night recap page */
                             val nightIntent = Intent(this@NightActivity, NightRecapActivity::class.java)

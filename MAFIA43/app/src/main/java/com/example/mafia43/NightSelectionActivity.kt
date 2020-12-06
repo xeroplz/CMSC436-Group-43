@@ -20,6 +20,7 @@ class NightSelectionActivity : AppCompatActivity() {
     private lateinit var selected : String
     private lateinit var mRoleView : TextView
     private lateinit var mPromptView : TextView
+    private lateinit var nightIntent : Intent
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,7 +104,7 @@ class NightSelectionActivity : AppCompatActivity() {
             } else {
                 when (role) {
                     MAFIA -> {
-                        val nightIntent =
+                        nightIntent =
                             Intent(this@NightSelectionActivity, NightActivity::class.java)
                         /* You have to create a Bundle to pass the Player array */
                         val args = Bundle()
@@ -113,10 +114,10 @@ class NightSelectionActivity : AppCompatActivity() {
                         nightIntent.putExtra("Role", DOCTOR)
                         nightIntent.putExtra("Kill", selected)
                         nightIntent.putExtra("Save", "")
-                        startActivity(nightIntent)
+                        displayMsg()
                     }
                     DOCTOR -> {
-                        val nightIntent =
+                        nightIntent =
                             Intent(this@NightSelectionActivity, NightActivity::class.java)
                         /* You have to create a Bundle to pass the Player array */
                         val args = Bundle()
@@ -126,10 +127,10 @@ class NightSelectionActivity : AppCompatActivity() {
                         nightIntent.putExtra("Role", DETECTIVE)
                         nightIntent.putExtra("Kill", intent.getStringExtra("Kill"))
                         nightIntent.putExtra("Save", selected)
-                        startActivity(nightIntent)
+                        displayMsg()
                     }
                     DETECTIVE -> {
-                        val nightIntent =
+                        nightIntent =
                             Intent(this@NightSelectionActivity, DetectiveActivity::class.java)
                         /* You have to create a Bundle to pass the Player array */
                         val args = Bundle()
@@ -164,6 +165,27 @@ class NightSelectionActivity : AppCompatActivity() {
             alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.GRAY)
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.GRAY)
         }
+        alertDialog.show()
+    }
+
+    private fun displayMsg() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this@NightSelectionActivity)
+
+        builder.setTitle("Please place phone back in the center")
+        builder.setMessage("when ready, press OK")
+        builder.setCancelable(false);
+        builder.setPositiveButton("OK", DialogInterface.OnClickListener{ _,_ ->
+            // go to next Night Activity
+            startActivity(nightIntent)
+
+        })
+
+        val alertDialog = builder.create()
+        alertDialog.setCanceledOnTouchOutside(false)
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.GRAY)
+        }
+
         alertDialog.show()
     }
 
