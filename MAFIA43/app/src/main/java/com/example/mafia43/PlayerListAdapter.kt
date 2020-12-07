@@ -8,6 +8,9 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
+/* Modified from:
+ https://gitlab.cs.umd.edu/cmsc436kotlinsamplecode/examples/-/blob/master/UIListViewCustomAdapter/
+ */
 class PlayerListAdapter(context: Context, resource: Int, objects: Array<Player>, themeDark: Boolean = false) :
     ArrayAdapter<Player>(context, resource, objects) {
 
@@ -38,21 +41,15 @@ class PlayerListAdapter(context: Context, resource: Int, objects: Array<Player>,
             newView = convertView
         }
 
-        // Set the View's data
-
-
         // Retrieve the viewHolder Object
         val storedViewHolder = newView.tag as ViewHolder
 
         //Set the data in the data View
         storedViewHolder.textView.text = getItem(position)?.name()
-        Log.i("tag", getItem(position).toString())
 
         return newView
     }
 
-    // The ViewHolder class. See:
-    // http://developer.android.com/training/improving-layouts/smooth-scrolling.html#ViewHolder
     internal class ViewHolder {
         lateinit var textView: TextView
     }
