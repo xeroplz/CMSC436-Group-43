@@ -11,7 +11,6 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
-// TODO: disable confirm button until someone is selected
 class Voting : AppCompatActivity() {
     lateinit var mTimerText : TextView
     lateinit var confirmButton : Button
@@ -79,6 +78,7 @@ class Voting : AppCompatActivity() {
             }
         }
 
+        /* User can skip vote and no one will be voted out */
         skipButton = findViewById(R.id.skip_button)
 
         skipButton.setOnClickListener{
@@ -105,8 +105,9 @@ class Voting : AppCompatActivity() {
         }
     }
 
+    /* Ask if user wants to exit */
     override fun onBackPressed() {
-        //super.onBackPressed()
+
         val builder: AlertDialog.Builder = AlertDialog.Builder(this@Voting)
 
         builder.setTitle("Quit Game")
@@ -126,6 +127,7 @@ class Voting : AppCompatActivity() {
         alertDialog.show()
     }
 
+    /* Stop timer and save Miliseconds remaining */
     override fun onPause() {
         super.onPause()
 
@@ -137,6 +139,7 @@ class Voting : AppCompatActivity() {
         timerRunning = false
     }
 
+    /* Restart timer with remaining miliseconds*/
     override fun onResume() {
         super.onResume()
         timerStart(miliLeft)
@@ -146,6 +149,7 @@ class Voting : AppCompatActivity() {
         super.onSaveInstanceState(savedInstanceState)
     }
 
+    /* Time's up alert displays when Timer runs out */
     fun infoDialog(){
         val builder: AlertDialog.Builder = AlertDialog.Builder(this@Voting)
 
@@ -155,7 +159,6 @@ class Voting : AppCompatActivity() {
         builder.setPositiveButton("OK", DialogInterface.OnClickListener{ _,_ ->
             // go to VoteRecap Activity
             goToVotingRecap("No one")
-
         })
 
         val alertDialog = builder.create()
@@ -167,6 +170,7 @@ class Voting : AppCompatActivity() {
         alertDialog.show()
     }
 
+    /* Displays who was voted out, if anyone was */
     private fun goToVotingRecap(votedOffString : String){
         val recapIntent = Intent(this@Voting, VoteRecapActivity::class.java)
         val args = Bundle()
@@ -200,8 +204,7 @@ class Voting : AppCompatActivity() {
 
         when {
             numMafiaAlive == 0 -> {
-                /* civilians win */
-                Log.i("winCondition", "civilians win")
+                /* Civilians win */
                 val winIntent = Intent(this@Voting, EndActivity::class.java)
                 val args = Bundle()
                 args.putSerializable("playersArr", this.mPlayers)
@@ -210,9 +213,8 @@ class Voting : AppCompatActivity() {
                 winIntent.putExtra("Mafia", false)
                 startActivity(winIntent)
             }
-            numCivilianAlive <= MAFIA -> { // 1 civilian and 1 civilian, doctor and detective are civilians
-                // mafia wins
-                Log.i("winCondition", "mafia wins")
+            numCivilianAlive <= MAFIA -> { // Number of civilians is less than number of Mafia (aka 1)
+                // Mafia wins
                 val winIntent = Intent(this@Voting, EndActivity::class.java)
                 val args = Bundle()
                 args.putSerializable("playersArr", this.mPlayers)

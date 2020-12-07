@@ -46,8 +46,9 @@ class VoteRecapActivity : AppCompatActivity() {
 
     }
 
+    /* Ask if user wants to exit */
     override fun onBackPressed() {
-        //super.onBackPressed()
+
         val builder: AlertDialog.Builder = AlertDialog.Builder(this@VoteRecapActivity)
 
         builder.setTitle("Quit Game")
