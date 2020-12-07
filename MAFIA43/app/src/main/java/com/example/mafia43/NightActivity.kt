@@ -60,9 +60,8 @@ class NightActivity : AppCompatActivity() {
                     if(player.role() == MAFIA) {
                         if(player.alive()) {
                             mTextView.text = "Mafia Awaken..."
-                            mHandler.postDelayed(mRunnable, 1000)
-                        } else {
-                            /* send to Mafia loss screen */
+                            mHandler.postDelayed(mNight, 500)
+                            mHandler.postDelayed(mRunnable, 8000)
                         }
                     }
                 }
@@ -167,6 +166,28 @@ class NightActivity : AppCompatActivity() {
                 mSoundId = mSoundPool.load(this@NightActivity, R.raw.detective, 1)
             }
         }
+    }
+
+    private val mNight = Runnable {
+        mStreamVolume = mAudioManager!!
+            .getStreamVolume(AudioManager.STREAM_MUSIC).toFloat() / mAudioManager!!.getStreamMaxVolume(
+            AudioManager.STREAM_MUSIC
+        )
+
+        val audioAttributes = AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .build()
+
+        mSoundPool = SoundPool.Builder()
+            .setMaxStreams(10)
+            .setAudioAttributes(audioAttributes)
+            .build()
+
+        mSoundPool.setOnLoadCompleteListener { soundPool, sampleId, status ->
+            mSoundPool.play(mSoundId, mStreamVolume, mStreamVolume, 1, 0, 1f)
+        }
+
+        mSoundId = mSoundPool.load(this@NightActivity, R.raw.place_the_phone_on_the_table, 1)
     }
 
     override fun onBackPressed() {
